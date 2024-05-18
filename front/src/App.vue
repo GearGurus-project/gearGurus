@@ -2,18 +2,21 @@
   <div id="app">
     <Navbar />
     <HelloWorldPage />
+    <Footer />
   </div>
 </template>
 
 <script>
 import HelloWorldPage from './components/HelloWorld-Page.vue';
 import Navbar from './components/Nav-Bar.vue'
+import Footer from './components/Footer-Component.vue'
 
 export default {
   name: 'App',
   components: {
     Navbar,
-    HelloWorldPage
+    HelloWorldPage, 
+    Footer
   }
 }
 </script>

@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <Navbar />
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HelloWorldPage />
   </div>
 </template>
+
 <script>
+import HelloWorldPage from './components/HelloWorld-Page.vue';
 import Navbar from './components/Nav-Bar.vue'
-import HelloWorld from './components/HelloWorld-Page.vue'
 
 export default {
   name: 'App',
   components: {
     Navbar,
-    HelloWorld
+    HelloWorldPage
   }
 }
 </script>
@@ -26,5 +26,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  min-height: 100vh; /* Ensure the app fills the viewport height */
+  display: flex;
+  flex-direction: column; /* Make the content stack vertically */
 }
 </style>

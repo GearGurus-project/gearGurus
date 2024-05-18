@@ -22,7 +22,7 @@
         </li>
       </ul>
     </div>
-    <router-link to="/" class="navbar-disconnect ml-auto">
+    <router-link to="/LogIn1" class="navbar-disconnect ml-auto">
       <button class="btn disconnect-btn" @click="disconnect">
         <img src="..\assets\LogOut.png" alt="Disconnect">
       </button>

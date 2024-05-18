@@ -50,8 +50,8 @@
   }
   
   .box {
-    width: 300px;
-    height: 300px;
+    width: 275px;
+    height: 275px;
     background-color: #f3f4f6; /* Light gray background */
     border: 2px solid transparent; /* Transparent border */
     border-radius: 10px;

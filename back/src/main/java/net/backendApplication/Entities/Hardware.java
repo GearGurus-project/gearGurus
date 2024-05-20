@@ -1,39 +1,33 @@
-package Entities;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+package net.backendApplication.Entities;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name="hardware")
 public class Hardware {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name="name")
-    private String name;
     @Column(name="barcode")
     private String barCode;
-    @Column(name="description")
-    private String description;
+    @Column(name="model")
+    private String model;
     @Column(name="datePurchase")
     private String datePurchase;
     @Column(name="price")
     private String price;
     @Column(name="provider")
     private String provider;
-
+    @Column(name="category")
+    private String category;
     public void setId(Long id) {
         this.id = id;
     }
-
     public Long getId() {
         return id;
     }

@@ -1,5 +1,8 @@
 <script>
 import GridComponent from "../components/Grid-Component.vue";
+import studentService from "../services/studentService";
+import hardwareService from "../services/hardwareService";
+import borrowedService from "../services/borrowedService";
 
 export default {
     name: 'Emprunts-Page',
@@ -64,6 +67,9 @@ export default {
 			group: ''
         };
       }
+
+	  // Requete SQL pour trouver l'étudiant
+	  // const student = studentService.getStudentByStudentNumber(this.studentNumber);
     },
 	searchHardware() {
 		// Réinitialiser les informations du matériel
@@ -76,6 +82,9 @@ export default {
 		// Rechercher le matériel dans gridData
 		const hardware = this.gridData.find(item => item["Code barre"] === this.hardwareNumber);
 
+		// Requete SQL pour trouver le matériel
+		// const hardware = hardwareService.getHardwareByBarCode(this.hardwareNumber);
+
 		// Si le matériel est trouvé, mettre à jour les informations
 		if (hardware) {
 			this.hardwareInfo = {
@@ -87,6 +96,37 @@ export default {
 			console.log("Matériel non trouvé.");
 		}
 	},
+	handleBorrowClick() {
+		// Requête SQL pour emprunter le matériel
+		if(this.studentNumber !== '' && this.hardwareNumber !== '') {
+			// Vérifier si le numéro étudiant et le code barre existent
+			// const student = studentService.getStudentByStudentNumber(this.studentNumber);
+			// const hardware = hardwareService.getHardwareByBarCode(this.hardwareNumber);
+
+			// Si les deux existent, emprunter le matériel
+			// borrowedService.borrowHardware(student, hardware);
+
+			// et réinitialiser les champs
+			console.log("Emprunt effectué.");
+			this.studentNumber = '';
+			this.hardwareNumber = '';
+			this.studentInfo = {
+				lastName: '',
+				firstName: '',
+				group: ''
+			};
+			this.hardwareInfo = {
+				category: '',
+				model: '',
+				purchaseDate: ''
+			};
+
+
+		} else {
+			// Affichage d'une erreur si les champs ne sont pas remplis sur l'écran
+			console.log("Erreur lors de l'emprunt.");
+		}
+	}
 
   }
 };
@@ -154,7 +194,7 @@ export default {
 					<h3>Période d'emprunt</h3>
 					<form id=""></form>
 				</div>
-				<button>Emprunter</button>
+				<button @click="handleBorrowClick">Emprunter</button>
 			</div>
 		</div>
 		<div class="borrowed-list">

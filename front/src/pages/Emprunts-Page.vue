@@ -1,8 +1,8 @@
 <script>
 import GridComponent from "../components/Grid-Component.vue";
-import studentService from "../services/studentService";
-import hardwareService from "../services/hardwareService";
-import borrowedService from "../services/borrowedService";
+//import studentService from "../services/studentService";
+//import hardwareService from "../services/hardwareService";
+//import borrowedService from "../services/borrowedService";
 
 export default {
     name: 'Emprunts-Page',
@@ -68,8 +68,8 @@ export default {
         };
       }
 
-	  // Requete SQL pour trouver l'étudiant
-	  // const student = studentService.getStudentByStudentNumber(this.studentNumber);
+		// Requete SQL pour trouver l'étudiant
+		// const student = studentService.getStudentByStudentNumber(this.studentNumber);
     },
 	searchHardware() {
 		// Réinitialiser les informations du matériel
@@ -104,10 +104,13 @@ export default {
 			// const hardware = hardwareService.getHardwareByBarCode(this.hardwareNumber);
 
 			// Si les deux existent, emprunter le matériel
-			// borrowedService.borrowHardware(student, hardware);
+			// if(student && hardware) {
+			// 	borrowedService.borrowHardware(student, hardware);
+			// }
 
 			// et réinitialiser les champs
 			console.log("Emprunt effectué.");
+
 			this.studentNumber = '';
 			this.hardwareNumber = '';
 			this.studentInfo = {

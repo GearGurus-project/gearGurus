@@ -71,7 +71,6 @@ public class BackApplication implements CommandLineRunner {
 		studentRepository.save(student3);
 
 		hardwareRepository.save(hardware1);
-
 		userRepository.save(user1);
 	}
 }

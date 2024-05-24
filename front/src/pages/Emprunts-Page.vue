@@ -7,45 +7,49 @@ import GridComponent from "../components/Grid-Component.vue";
 export default {
 	name: 'Emprunts-Page',
 	components: {
-		GridComponent
+		GridComponent,
+		//studentService,
+		//hardwareService,
+		//borrowedService
 	},
 	data() {
 		return {
-			searchQuery: '',
-			gridColumns: ["Catégorie", "Modèle", "Date d'achat", "Code barre"],
-			gridData: [
-				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', "Date d'achat": '2020-01-01', "Code barre": '1234567890' },
-				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Air', "Date d'achat": '2020-01-03', "Code barre": '1234567891' },
-				{ Catégorie: 'Clavier', Modèle: 'Magic Keyboard', "Date d'achat": '2020-02-01', "Code barre": '1234567892' },
-				{ Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', "Date d'achat": '2020-04-10', "Code barre": '1234567893' },
-				{ Catégorie: 'Souris', Modèle: 'Apple Mouse', "Date d'achat": '2020-11-01', "Code barre": '1234567894' },
-				{ Catégorie: 'Souris', Modèle: 'Apple Mouse Pro', "Date d'achat": '2020-01-08', "Code barre": '1234567895' },
-				{ Catégorie: 'Casque', Modèle: 'Airpods Pro', "Date d'achat": '2020-01-21', "Code barre": '1234567896' },
-				{ Catégorie: 'Casque', Modèle: 'Airpods Max', "Date d'achat": '2020-12-25', "Code barre": '1234567897' },
-				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', "Date d'achat": '2020-01-01', "Code barre": '1234567890' },
-				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Air', "Date d'achat": '2020-01-03', "Code barre": '1234567891' },
-				{ Catégorie: 'Clavier', Modèle: 'Magic Keyboard', "Date d'achat": '2020-02-01', "Code barre": '1234567892' },
-				{ Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', "Date d'achat": '2020-04-10', "Code barre": '1234567893' },
-				{ Catégorie: 'Souris', Modèle: 'Apple Mouse', "Date d'achat": '2020-11-01', "Code barre": '1234567894' },
-				{ Catégorie: 'Souris', Modèle: 'Apple Mouse Pro', "Date d'achat": '2020-01-08', "Code barre": '1234567895' },
-				{ Catégorie: 'Casque', Modèle: 'Airpods Pro', "Date d'achat": '2020-01-21', "Code barre": '1234567896' },
-				{ Catégorie: 'Casque', Modèle: 'Airpods Max', "Date d'achat": '2020-12-25', "Code barre": '1234567897' },
+			searchNotBorrowedQuery: '',
+			gridColumns: ["Catégorie", "Modèle", "Fournisseur", "Date d'achat", "Code barre"],
+			gridNotBorrowedData: [
+				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-01', "Code barre": '1234567890' },
+				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Air', Fournisseur: "Apple", "Date d'achat": '2020-01-03', "Code barre": '1234567891' },
+				{ Catégorie: 'Clavier', Modèle: 'Magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-02-01', "Code barre": '1234567892' },
+				{ Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-04-10', "Code barre": '1234567893' },
+				{ Catégorie: 'Souris', Modèle: 'Apple Mouse', Fournisseur: "Apple", "Date d'achat": '2020-11-01', "Code barre": '1234567894' },
+				{ Catégorie: 'Souris', Modèle: 'Apple Mouse Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-08', "Code barre": '1234567895' },
+				{ Catégorie: 'Casque', Modèle: 'Airpods Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-21', "Code barre": '1234567896' },
+				{ Catégorie: 'Casque', Modèle: 'Airpods Max', Fournisseur: "Apple", "Date d'achat": '2020-12-25', "Code barre": '1234567897' },
+				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-01', "Code barre": '1234567890' },
+				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Air', Fournisseur: "Apple", "Date d'achat": '2020-01-03', "Code barre": '1234567891' },
+				{ Catégorie: 'Clavier', Modèle: 'Magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-02-01', "Code barre": '1234567892' },
+				{ Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-04-10', "Code barre": '1234567893' },
+				{ Catégorie: 'Souris', Modèle: 'Apple Mouse', Fournisseur: "Apple", "Date d'achat": '2020-11-01', "Code barre": '1234567894' },
+				{ Catégorie: 'Souris', Modèle: 'Apple Mouse Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-08', "Code barre": '1234567895' },
+				{ Catégorie: 'Casque', Modèle: 'Airpods Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-21', "Code barre": '1234567896' },
+				{ Catégorie: 'Casque', Modèle: 'Airpods Max', Fournisseur: "Apple", "Date d'achat": '2020-12-25', "Code barre": '1234567897' },
 			],
-			gridColumnsBorrowed: ["Numéro étudiant", "Catégorie", "Modèle", "Date d'achat", "Code barre", "Date de début", "Date de fin"],
-			gridDataBorrowed: [
-				{ "Numéro étudiant": '123456', Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', "Date d'achat": '2020-01-01', "Code barre": '234567890', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123457', Catégorie: 'Ordinateur', Modèle: 'MacBook Air', "Date d'achat": '2020-01-03', "Code barre": '234567891', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123457', Catégorie: 'Clavier', Modèle: 'Magic Keyboard', "Date d'achat": '2020-02-01', "Code barre": '234567892', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123458', Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', "Date d'achat": '2020-04-10', "Code barre": '234567893', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123458', Catégorie: 'Souris', Modèle: 'Apple Mouse', "Date d'achat": '2020-11-01', "Code barre": '234567894', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123459', Catégorie: 'Souris', Modèle: 'Apple Mouse Pro', "Date d'achat": '2020-01-08', "Code barre": '234567895', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123459', Catégorie: 'Casque', Modèle: 'Airpods Pro', "Date d'achat": '2020-01-21', "Code barre": '234567896', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123451', Catégorie: 'Casque', Modèle: 'Airpods Max', "Date d'achat": '2020-12-25', "Code barre": '234567897', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123451', Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', "Date d'achat": '2020-01-01', "Code barre": '234567890', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123452', Catégorie: 'Ordinateur', Modèle: 'MacBook Air', "Date d'achat": '2020-01-03', "Code barre": '234567891', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123452', Catégorie: 'Clavier', Modèle: 'Magic Keyboard', "Date d'achat": '2020-02-01', "Code barre": '234567892', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123453', Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', "Date d'achat": '2020-04-10', "Code barre": '234567893', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123456', Catégorie: 'Souris', Modèle: 'Apple Mouse', "Date d'achat": '2020-11-01', "Code barre": '234567894', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+			searchBorrowedQuery: '',
+			gridColumnsBorrowed: ["Numéro étudiant", "Catégorie", "Modèle", "Fournisseur", "Date d'achat", "Code barre", "Date de début", "Date de fin"],
+			gridBorrowedData: [
+				{ "Numéro étudiant": '123456', Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-01', "Code barre": '234567890', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+				{ "Numéro étudiant": '123457', Catégorie: 'Ordinateur', Modèle: 'MacBook Air', Fournisseur: "Apple", "Date d'achat": '2020-01-03', "Code barre": '234567891', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+				{ "Numéro étudiant": '123457', Catégorie: 'Clavier', Modèle: 'Magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-02-01', "Code barre": '234567892', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+				{ "Numéro étudiant": '123458', Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-04-10', "Code barre": '234567893', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+				{ "Numéro étudiant": '123458', Catégorie: 'Souris', Modèle: 'Apple Mouse', Fournisseur: "Apple", "Date d'achat": '2020-11-01', "Code barre": '234567894', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+				{ "Numéro étudiant": '123459', Catégorie: 'Souris', Modèle: 'Apple Mouse Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-08', "Code barre": '234567895', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+				{ "Numéro étudiant": '123459', Catégorie: 'Casque', Modèle: 'Airpods Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-21', "Code barre": '234567896', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+				{ "Numéro étudiant": '123451', Catégorie: 'Casque', Modèle: 'Airpods Max', Fournisseur: "Apple", "Date d'achat": '2020-12-25', "Code barre": '234567897', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+				{ "Numéro étudiant": '123451', Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-01', "Code barre": '234567890', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+				{ "Numéro étudiant": '123452', Catégorie: 'Ordinateur', Modèle: 'MacBook Air', Fournisseur: "Apple", "Date d'achat": '2020-01-03', "Code barre": '234567891', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+				{ "Numéro étudiant": '123452', Catégorie: 'Clavier', Modèle: 'Magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-02-01', "Code barre": '234567892', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+				{ "Numéro étudiant": '123453', Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-04-10', "Code barre": '234567893', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
+				{ "Numéro étudiant": '123456', Catégorie: 'Souris', Modèle: 'Apple Mouse', Fournisseur: "Apple", "Date d'achat": '2020-11-01', "Code barre": '234567894', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
 			],
 			studentNumber: '',
 			studentInfo: {
@@ -63,6 +67,26 @@ export default {
 			endDate: '',
 			presetPeriod: '',
 		};
+	},
+	computed: {
+		filteredNotBorrowedResultsCount() {
+			const count = this.gridNotBorrowedData.filter(row => {
+				return Object.keys(row).some(key => {
+					return String(row[key]).toLowerCase().includes(this.searchNotBorrowedQuery.toLowerCase());
+				});
+			}).length;
+
+			return count + ' ' + (count === 1 ? 'résultat trouvé' : 'résultats trouvés');
+		},
+		filteredBorrowedResultsCount() {
+			const count = this.gridBorrowedData.filter(row => {
+				return Object.keys(row).some(key => {
+					return String(row[key]).toLowerCase().includes(this.searchBorrowedQuery.toLowerCase());
+				});
+			}).length;
+
+			return count + ' ' + (count === 1 ? 'résultat trouvé' : 'résultats trouvés');
+		}
 	},
 	methods: {
 		searchStudent() {
@@ -172,16 +196,19 @@ export default {
 </script>
 
 <template>
+	<h1 class="title">
+		Gestion des emprunts
+	</h1>
 	<div class="body">
-		<h1 class="title">
-			Emprunts
-		</h1>
 		<div class="to-borrow">
 			<div class="no-borrowed-list">
-				<form id="search">
-					Rechercher <input name="query" v-model="searchQuery" />
-				</form>
-				<GridComponent :heroes="gridData" :columns="gridColumns" :filter-key="searchQuery" />
+				<div class="search-bar">
+					<form id="search">
+						Rechercher : <input name="query" v-model="searchNotBorrowedQuery" />
+					</form>
+					<p>{{ filteredNotBorrowedResultsCount }}</p>
+				</div>
+				<GridComponent :heroes="gridNotBorrowedData" :columns="gridColumns" :filter-key="searchNotBorrowedQuery" />
 			</div>
 			<div class="to-borrow-forms">
 				<h2>Réservation</h2>
@@ -245,10 +272,13 @@ export default {
 			</div>
 		</div>
 		<div class="borrowed-list">
-			<form id="search">
-				Rechercher <input name="query" v-model="searchQuery" />
-			</form>
-			<GridComponent :heroes="gridDataBorrowed" :columns="gridColumnsBorrowed" :filter-key="searchQuery" />
+			<div class="search-bar">
+				<form id="search">
+					Rechercher : <input name="query" v-model="searchBorrowedQuery" />
+				</form>
+				<p>{{ filteredBorrowedResultsCount }}</p>
+			</div>
+			<GridComponent :heroes="gridBorrowedData" :columns="gridColumnsBorrowed" :filter-key="searchBorrowedQuery" />
 		</div>
 	</div>
 </template>
@@ -274,18 +304,15 @@ export default {
 		border: 1px solid black;
 		border-radius: 10px;
 		background-color: #FFFFFF;
+
+		.search-bar {
+			display: flex;
+			justify-content: space-between;
+		}
 	}
 
 	h3 {
 		margin-bottom: 20px;
-	}
-
-	form {
-		input {
-			margin-bottom: 20px;
-			width: 80%;
-		}
-
 	}
 
 	.to-borrow-forms {
@@ -346,5 +373,15 @@ export default {
 	border-radius: 10px;
 	background-color: #FFFFFF;
 	width: 100%;
+
+	.search-bar {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		p {
+			margin-left: 20px;
+		}
+	}
 }
 </style>

@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../components/Home-Page.vue';
-import Emprunts from '../components/Emprunts-Page.vue';
-import Login1 from '../components/LogIn1-Page.vue';
-import Login2 from '../components/LogIn2-Page.vue';
-import Materiels from '../components/Materiels-Page.vue';
-import NavBar from '../components/Nav-Bar.vue';
-import Statistiques from '../components/Statistiques-Page.vue';
+import Home from '../pages/Home-Page.vue';
+import Emprunts from '../pages/Emprunts-Page.vue';
+import Login1 from '../pages/LogIn1-Page.vue';
+import Login2 from '../pages/LogIn2-Page.vue';
+import Materiels from '../pages/Materiels-Page.vue';
+import Statistiques from '../pages/Statistiques-Page.vue';
+import NotFoundPage from '../pages/Not-Found-Page.vue';
 
 
 
@@ -18,7 +18,7 @@ const routes = [
   },
   {
     path: '/Emprunts',
-    name: 'Emrprunts',
+    name: 'Emprunts',
     component: Emprunts
   },
 
@@ -42,11 +42,11 @@ const routes = [
     name: 'Statistiques',
     component: Statistiques
   },
-    {
-        path: '/NavBar',
-        name: 'NavBar',
-        component: NavBar
-    }
+  {
+	path : '/:pathMatch(.*)*',
+	name : 'NotFoundPage',
+	component : NotFoundPage
+  }
 ];
 
 const router = createRouter({

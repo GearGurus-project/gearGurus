@@ -11,24 +11,23 @@ import lombok.*;
 @Entity
 @Table(name="student")
 public class Student {
-    @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Getter
     @Column(name="firstName")
     private String firstName;
-    @Getter
     @Column(name="lastName")
     private String lastName;
-    @Getter
     @Column(name="group_student")
     private String group_student;
-    @Getter
     @Column(name="email")
     private String email;
-    @Getter
     @Column(name="student_number")
     private String student_number;
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Long getId() {
+        return id;
+    }
 }

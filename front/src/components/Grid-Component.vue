@@ -77,7 +77,7 @@ export default {
 <style scoped>
 .table-container {
 	margin-top: 20px;
-	height: 500px;
+	height: 600px;
 	/* Adjust this value as needed */
 	overflow-y: auto;
 	border: 2px solid #98ABEE;

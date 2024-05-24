@@ -61,6 +61,7 @@ export default {
 			hardwareInfo: {
 				category: '',
 				model: '',
+				supplier: '',
 				purchaseDate: ''
 			},
 			startDate: '',
@@ -119,6 +120,7 @@ export default {
 			this.hardwareInfo = {
 				category: '',
 				model: '',
+				supplier: '',
 				purchaseDate: ''
 			};
 
@@ -133,6 +135,7 @@ export default {
 				this.hardwareInfo = {
 					category: hardware.Catégorie,
 					model: hardware.Modèle,
+					supplier: hardware.Fournisseur,
 					purchaseDate: hardware["Date d'achat"]
 				};
 			} else {
@@ -179,6 +182,7 @@ export default {
 				this.hardwareInfo = {
 					category: '',
 					model: '',
+					supplier: '',
 					purchaseDate: ''
 				};
 
@@ -248,6 +252,9 @@ export default {
 								<p>Modèle : {{ hardwareInfo.model }}</p>
 							</div>
 							<div class="col-md-4">
+								<p>Fournisseur : {{ hardwareInfo.supplier }}</p>
+							</div>
+							<div class="col-md-4">
 								<p>Date d'achat : {{ hardwareInfo.purchaseDate }}</p>
 							</div>
 						</div>
@@ -272,6 +279,7 @@ export default {
 			</div>
 		</div>
 		<div class="borrowed-list">
+			<h2>Liste du matériel</h2>
 			<div class="search-bar">
 				<form id="search">
 					Rechercher : <input name="query" v-model="searchBorrowedQuery" />
@@ -326,6 +334,28 @@ export default {
 			border-bottom: 1px solid #D9D9D9;
 		}
 
+		form {
+			input {
+				padding: 5px;
+				margin-bottom: 20px;
+				border-radius: 5px;
+				border: 1px solid #D9D9D9;
+				width: 70%;
+			}
+			button {
+				border-radius: 5px;
+				padding: 5px 20px;
+				background-color: #98ABEE;
+				color: white;
+				border: none;
+				cursor: pointer;
+			}
+		}
+
+		.row {
+			margin-top: 20px;
+		}
+
 		.to-borrow-student-forms {
 			padding-bottom: 20px;
 			border-bottom: 1px solid #D9D9D9;
@@ -351,18 +381,16 @@ export default {
 				padding: 8px;
 				margin-bottom: 20px;
 			}
+		}
 
-			button {
-				padding: 10px 20px;
-				background-color: #007bff;
-				color: white;
-				border: none;
-				cursor: pointer;
-			}
-
-			button:hover {
-				background-color: #0056b3;
-			}
+		button {
+			margin: 0 10px;
+			padding: 10px 20px;
+			border-radius: 5px;
+			background-color: #201658;
+			color: white;
+			border: none;
+			cursor: pointer;
 		}
 	}
 }
@@ -374,7 +402,13 @@ export default {
 	background-color: #FFFFFF;
 	width: 100%;
 
+	h2 {
+		padding-top: 10px;
+		margin: 0;
+	}
+
 	.search-bar {
+		margin-top: 20px;
 		display: flex;
 		justify-content: center;
 		align-items: center;

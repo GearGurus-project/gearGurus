@@ -72,9 +72,8 @@ export default {
 				<input type="date" name="purchase-date" id="purchase-date" />
 				<label for="price">Prix</label>
 				<input type="number" name="price" id="price" />
-				<label for="barcode">Code barre : </label> 	
+				<label for="barcode">Code barre : </label>
 				<input type="text" name="barcode" id="barcode" />
-
 				<button type="submit">Ajouter</button>
 			</form>
 		</div>
@@ -112,18 +111,27 @@ export default {
 	background-color: #FFFFFF;
 
 	h2 {
-		padding-top : 10px;
-		margin : 0;
+		padding-top: 10px;
+		margin: 0;
 	}
 
 	form {
-		padding : 10px 0;
+		padding: 10px 0;
+
+
 		label {
 			margin: 0 10px;
 		}
 
+		.attributes {
+			margin: 10px 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
 		button {
-			margin : 0 10px;
+			margin: 10px;
 			padding: 10px 20px;
 			border-radius: 5px;
 			background-color: #201658;
@@ -135,20 +143,26 @@ export default {
 }
 
 .hardware-list {
-	margin : 20px 0;
+	margin: 20px 0;
 	padding: 20px 30px;
 	border: 1px solid black;
 	border-radius: 10px;
 	background-color: #FFFFFF;
 
 	h2 {
-		padding-top : 10px;
-		margin : 0;
+		padding-top: 10px;
+		margin: 0;
 	}
 
 	.search-bar {
+		margin-top: 20px;
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
+		align-items: center;
+
+		p {
+			margin-left: 20px;
+		}
 	}
 }
 </style>

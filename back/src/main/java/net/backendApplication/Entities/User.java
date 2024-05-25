@@ -11,8 +11,6 @@ import lombok.*;
 @Entity
 @Table(name = "\"user\"")
 public class User {
-    @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -24,4 +22,11 @@ public class User {
     private String password;
     @Column(name="role")
     private String role; // Celui qui met supprime, ou celui qui attribue aux students
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Long getId() {
+        return id;
+    }
 }

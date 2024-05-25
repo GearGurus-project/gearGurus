@@ -20,6 +20,9 @@
         <li class="nav-item">
           <router-link to="/statistiques" class="nav-link">Statistiques</router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/GestionUtilisateurs" class="nav-link">Gestion Utilisateurs</router-link>
+        </li>
       </ul>
     </div>
     <router-link to="/LogIn1" class="navbar-disconnect ml-auto">

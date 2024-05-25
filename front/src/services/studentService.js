@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-	baseURL: 'http://localhost:8081/api/students', // Base URL pour les étudiants
+	baseURL: 'http://localhost:8080/api/students', // Base URL pour les étudiants
 	timeout: 1000,
 	headers: { 'Content-Type': 'application/json' },
 });

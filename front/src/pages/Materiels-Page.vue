@@ -1,5 +1,6 @@
 <script>
 import GridComponent from "../components/Grid-Component.vue";
+import hardwareService from "@/services/hardwareService";
 
 export default {
 	name: 'Materiels-Page',
@@ -10,26 +11,66 @@ export default {
 		return {
 			searchQuery: '',
 			gridColumns: ["Catégorie", "Modèle", "Fournisseur", "Date d'achat", "Prix", "Code barre"],
-			gridHardwareList: [
-				{ Catégorie: "Ordinateur", Modèle: "Airpods Pro", Fournisseur: "Apple", "Date d'achat": "2024-03-21", Prix: "180€", "Code barre": "1234567890123" },
-				{ Catégorie: "Ordinateur", Modèle: "Airpods Pro", Fournisseur: "Apple", "Date d'achat": "2024-04-11", Prix: "180€", "Code barre": "1234567890124" },
-				{ Catégorie: "Ordinateur", Modèle: "Airpods Max", Fournisseur: "Apple", "Date d'achat": "2024-05-21", Prix: "480€", "Code barre": "1234567890125" },
-				{ Catégorie: "Ordinateur", Modèle: "Airpods 2", Fournisseur: "Apple", "Date d'achat": "2024-06-21", Prix: "180€", "Code barre": "1234567890126" },
-				{ Catégorie: "Ordinateur", Modèle: "Mac", Fournisseur: "Apple", "Date d'achat": "2024-07-21", Prix: "1180€", "Code barre": "1234567890127" },
-				{ Catégorie: "Ordinateur", Modèle: "iPhone", Fournisseur: "Apple", "Date d'achat": "2024-08-21", Prix: "780€", "Code barre": "1234567890128" },
-				{ Catégorie: "Ordinateur", Modèle: "iPad", Fournisseur: "Apple", "Date d'achat": "2024-09-21", Prix: "580€", "Code barre": "1234567890129" },
-				{ Catégorie: "Ordinateur", Modèle: "Apple Watch", Fournisseur: "Apple", "Date d'achat": "2024-10-21", Prix: "380€", "Code barre": "1234567890130" },
-				{ Catégorie: "Ordinateur", Modèle: "Apple TV", Fournisseur: "Apple", "Date d'achat": "2024-11-21", Prix: "1080€", "Code barre": "1234567890131" },
-				{ Catégorie: "Ordinateur", Modèle: "HomePod", Fournisseur: "Apple", "Date d'achat": "2024-12-21", Prix: "80€", "Code barre": "1234567890132" },
-				{ Catégorie: "Ordinateur", Modèle: "iPod", Fournisseur: "Apple", "Date d'achat": "2025-01-21", Prix: "80€", "Code barre": "1234567890133" },
-				{ Catégorie: "Ordinateur", Modèle: "Accessoires", Fournisseur: "Apple", "Date d'achat": "2025-02-21", Prix: "30€", "Code barre": "1234567890134" },
-			]
+			gridHardwareList: [],
+			hardwareItem : {
+				category: '',
+				model: '',
+				provider: '',
+				datePurchase: '',
+				price: '',
+				barCode: ''
+			},
 		};
 	},
 	methods: {
+		async getHardwareList() {
+			try {
+				const response = await hardwareService.getHardware();
+				console.log(response);
+
+				// Map data to match the gridColumns structure
+				this.gridHardwareList = response.data.map(item => ({
+					Catégorie: item.category,
+					Modèle: item.model,
+					Fournisseur: item.provider,
+					"Date d'achat": item.datePurchase,
+					Prix: item.price,
+					"Code barre": item.barCode
+				}));
+
+			} catch (error) {
+				console.error(error);
+			}
+		},
+		async postHardwareItem() {
+			try {
+				const response = await hardwareService.postHardware(this.hardwareItem);
+				console.log(response);
+
+				// Update the hardware list
+				this.getHardwareList();
+
+				// Reset the form
+				this.hardwareItem = {
+					category: '',
+					model: '',
+					provider: '',
+					datePurchase: '',
+					price: '',
+					barCode: ''
+				};
+
+			} catch (error) {
+				console.error(error);
+			}
+		},
 		updateResultsCount(count) {
 			this.resultsCount = count;
 		},
+	},
+	// Permet de lancer les fonctions au chargement de la page
+	mounted() {
+		this.getHardwareList();
 	},
 	computed: {
 		filteredResultsCount() {
@@ -53,27 +94,27 @@ export default {
 	<div class="body">
 		<div class="add-hardware-form">
 			<h2>Ajouter du matériel</h2>
-			<form>
+			<form @submit.prevent="postHardwareItem">
 				<label for="category">Catégorie</label>
-				<select name="category" id="category">
-					<option value="computer">Ordinateur</option>
-					<option value="printer">Imprimante</option>
-					<option value="scanner">Scanner</option>
-					<option value="screen">Écran</option>
-					<option value="keyboard">Clavier</option>
-					<option value="mouse">Souris</option>
-					<option value="other">Autre</option>
+				<select name="category" id="category" v-model="hardwareItem.category">
+					<option value="Ordinateur">Ordinateur</option>
+					<option value="Imprimante">Imprimante</option>
+					<option value="Scanner">Scanner</option>
+					<option value="Écran">Écran</option>
+					<option value="Clavier">Clavier</option>
+					<option value="Souris">Souris</option>
+					<option value="Autre">Autre</option>
 				</select>
 				<label for="model">Modèle : </label>
-				<input type="text" name="model" id="model" />
-				<label for="supplier">Fournisseur : </label>
-				<input type="text" name="supplier" id="supplier" />
+				<input type="text" name="model" id="model" v-model="hardwareItem.model"/>
+				<label for="provider">Fournisseur : </label>
+				<input type="text" name="provider" id="provider" v-model="hardwareItem.provider"/>
 				<label for="purchase-date">Date d'achat : </label>
-				<input type="date" name="purchase-date" id="purchase-date" />
+				<input type="date" name="purchase-date" id="purchase-date" v-model="hardwareItem.datePurchase"/>
 				<label for="price">Prix</label>
-				<input type="number" name="price" id="price" />
+				<input type="number" name="price" id="price" v-model="hardwareItem.price"/>
 				<label for="barcode">Code barre : </label>
-				<input type="text" name="barcode" id="barcode" />
+				<input type="text" name="barcode" id="barcode" v-model="hardwareItem.barCode"/>
 				<button type="submit">Ajouter</button>
 			</form>
 		</div>

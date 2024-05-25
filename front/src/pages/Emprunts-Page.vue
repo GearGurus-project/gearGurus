@@ -61,7 +61,7 @@ export default {
 			hardwareInfo: {
 				category: '',
 				model: '',
-				supplier: '',
+				provider: '',
 				purchaseDate: ''
 			},
 			startDate: '',
@@ -91,7 +91,6 @@ export default {
 	},
 	methods: {
 		searchStudent() {
-
 			this.studentInfo = {
 				nom: '',
 				prenom: '',
@@ -120,7 +119,7 @@ export default {
 			this.hardwareInfo = {
 				category: '',
 				model: '',
-				supplier: '',
+				provider: '',
 				purchaseDate: ''
 			};
 
@@ -135,7 +134,7 @@ export default {
 				this.hardwareInfo = {
 					category: hardware.Catégorie,
 					model: hardware.Modèle,
-					supplier: hardware.Fournisseur,
+					provider: hardware.Fournisseur,
 					purchaseDate: hardware["Date d'achat"]
 				};
 			} else {
@@ -146,8 +145,7 @@ export default {
 			// Requête SQL pour emprunter le matériel
 			if (this.studentNumber !== '' && this.hardwareNumber !== '' && this.startDate !== '' && this.endDate !== '') {
 				// Vérifier si le numéro étudiant, le code barre et les dates existent
-				// const student = studentService.getStudentByStudentNumber(this.studentNumber);
-				// const hardware = hardwareService.getHardwareByBarCode(this.hardwareNumber);
+				
 
 				// Validation de base pour vérifier que les dates sont définies
 				if (!this.startDate || !this.endDate) {
@@ -182,7 +180,7 @@ export default {
 				this.hardwareInfo = {
 					category: '',
 					model: '',
-					supplier: '',
+					provider: '',
 					purchaseDate: ''
 				};
 
@@ -252,7 +250,7 @@ export default {
 								<p>Modèle : {{ hardwareInfo.model }}</p>
 							</div>
 							<div class="col-md-4">
-								<p>Fournisseur : {{ hardwareInfo.supplier }}</p>
+								<p>Fournisseur : {{ hardwareInfo.provider }}</p>
 							</div>
 							<div class="col-md-4">
 								<p>Date d'achat : {{ hardwareInfo.purchaseDate }}</p>

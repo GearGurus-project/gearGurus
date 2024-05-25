@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-	baseURL: 'http://localhost:8081/api/borrowed', // Base URL pour les emprunts
+	baseURL: 'http://localhost:8080/api/borrowed', // Base URL pour les emprunts
 	timeout: 1000,
 	headers: { 'Content-Type': 'application/json' },
 });

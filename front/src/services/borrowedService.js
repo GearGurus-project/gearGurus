@@ -1,14 +1,28 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'http://your-backend-api-url.com/api/borrowed', // Base URL pour les emprunts
-  timeout: 1000,
-  headers: { 'Content-Type': 'application/json' },
+	baseURL: 'http://localhost:8080/api/borrowed', // Base URL pour les emprunts
+	timeout: 1000,
+	headers: { 'Content-Type': 'application/json' },
 });
 
 export default {
-  getBorrowedItems(studentNumber) {
-    return apiClient.get(`/student/${studentNumber}`);
-  },
-  // Ajoutez d'autres méthodes pour les emprunts si nécessaire
+	getBorrowedItemsById(studentNumber) {
+		return apiClient.get(`/student/${studentNumber}`);
+	},
+	getBorrowedItems() {
+		return apiClient.get('/');
+	},
+	getBorrowedItemByBarCode(barCode) {
+		return apiClient.get(`/${barCode}`);
+	},
+	createBorrowedItem(borrowedItem) {
+		return apiClient.post('/', borrowedItem);
+	},
+	updateBorrowedItem(borrowedItem) {
+		return apiClient.put(`/${borrowedItem.barCode}`, borrowedItem);
+	},
+	deleteBorrowedItem(barCode) {
+		return apiClient.delete(`/${barCode}`);
+	},
 };

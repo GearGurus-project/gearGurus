@@ -2,6 +2,8 @@ package net.backendApplication.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,6 +39,9 @@ public class Hardware {
     @Setter
     @Column(name="category")
     private String category;
+
+    @OneToMany(mappedBy = "id.idHardware")
+    private Set<Borrowed> borrowedRecords;
     public void setId(Long id) {
         this.id = id;
     }

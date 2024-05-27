@@ -1,64 +1,111 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
-    <router-link to="/" class="navbar-brand mr-auto">
-      <img src="..\assets\Efrei-Logo.png" alt="Logo">
-    </router-link>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link">Accueil</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/emprunts" class="nav-link">Emprunts</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/materiels" class="nav-link">Materiels</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/statistiques" class="nav-link">Statistiques</router-link>
-        </li>
-      </ul>
-    </div>
-    <router-link to="/LogIn1" class="navbar-disconnect ml-auto">
-      <button class="btn disconnect-btn" @click="disconnect">
-        <img src="..\assets\LogOut.png" alt="Disconnect">
-      </button>
-    </router-link>
-  </nav>
-</template>
+	<div>
+		<nav class="navbar navbar-expand-md navbar-dark navbar-custom">
+			<!-- Logo to the right -->
+			<router-link to="/" class="navbar-brand ml-auto">
+				<img src="../assets/Efrei-Logo.png" alt="Logo">
+			</router-link>
 
+			<!-- Navigation links centered -->
+			<div class="navbar-brand mx-auto">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<router-link to="/" class="nav-link">Accueil</router-link>
+					</li>
+					<li class="nav-item">
+						<router-link to="/emprunts" class="nav-link">Emprunts</router-link>
+					</li>
+					<li class="nav-item">
+						<router-link to="/materiels" class="nav-link">Materiels</router-link>
+					</li>
+					<li class="nav-item">
+						<router-link to="/statistiques" class="nav-link">Statistiques</router-link>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Disconnect button to the right -->
+			<div>
+				<button class="btn disconnect-btn" @click="disconnect">
+					<img src="../assets/LogOut.png" alt="Disconnect">
+				</button>
+			</div>
+		</nav>
+	</div>
+</template>
+  
 <script>
 export default {
-  methods: {
-    disconnect() {
-      // Handle disconnect logic here
-    }
-  }
+	methods: {
+		disconnect() {
+			// Handle disconnect logic here
+		}
+	}
 }
 </script>
-
+  
 <style scoped>
 .navbar-custom {
-  background-color: #201658;
+	background-color: #201658;
+	height: 80px;
+	/* Adjust height as needed */
 }
 
 .navbar-brand img {
-  max-height: 40px;
+	max-height: 40px;
+	margin: 5px 15px;
+}
+
+.navbar-brand li {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.navbar-nav {
+	list-style: none;
+	/* Remove bullets */
+	padding-left: 0;
+	/* Remove default padding */
+
+	list-style: none;
+	/* Remove bullets */
+	padding-left: 0;
+	/* Remove default padding */
+	display: flex;
+	/* Add this line to enable flexbox */
+	justify-content: center;
+	/* Add this line to center the links horizontally */
+	align-items: center;
+	/* Asdd this line to center the links vertically */
+
 }
 
 .navbar-nav .nav-link {
-  color: #fff;
-  font-weight: bold;
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+	margin: 0 15px;
+
+
+
+}
+
+.navbar-nav .nav-link:hover {
+	color: #ddd;
 }
 
 .disconnect-btn {
-  color: #fff;
+	background-color: transparent;
+	border: none;
+	position: absolute;
+	right: 0;
+	margin-right: 10px;
+	margin-top: 10px;
 }
 
-.navbar-disconnect img {
-  max-height: 40px;
-}
-</style>
+.disconnect-btn img {
+	max-height: 40px;
+}</style>
+  

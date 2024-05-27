@@ -65,8 +65,8 @@ public class HardwareController {
     }
 
     @DeleteMapping("/barcode/{barcode}")
-    public void deleteHardwareByBarcode(@PathVariable String barcode) {
-        hardwareServices.deleteHardwareByBarcode(barcode);
+    public void deleteHardwareByBarCode(@PathVariable String barcode) {
+        hardwareServices.deleteHardwareByBarCode(barcode);
     }
 
 }

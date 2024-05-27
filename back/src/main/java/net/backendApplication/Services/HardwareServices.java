@@ -29,7 +29,7 @@ public class HardwareServices {
         hardwareRepository.deleteById(id);
     }
 
-    public void deleteHardwareByBarcode(String barCode) {
+    public void deleteHardwareByBarCode(String barCode) {
         hardwareRepository.deleteByBarCode(barCode);
     }
 

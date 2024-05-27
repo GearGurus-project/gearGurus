@@ -91,6 +91,12 @@ export default {
 	},
 	methods: {
 		searchStudent() {
+			// Vérifier si le numéro étudiant est renseigné
+			if (this.studentNumber === '') {
+				alert('Veuillez entrer un numéro étudiant.');
+				return;
+			}
+
 			this.studentInfo = {
 				nom: '',
 				prenom: '',
@@ -115,6 +121,12 @@ export default {
 			// const student = studentService.getStudentByStudentNumber(this.studentNumber);
 		},
 		searchHardware() {
+			// Vérifier si le code barre est renseigné
+			if (this.hardwareNumber === '') {
+				alert('Veuillez entrer un code barre.');
+				return;
+			}
+
 			// Réinitialiser les informations du matériel
 			this.hardwareInfo = {
 				category: '',
@@ -124,10 +136,7 @@ export default {
 			};
 
 			// Rechercher le matériel dans gridData
-			const hardware = this.gridData.find(item => item["Code barre"] === this.hardwareNumber);
-
-			// Requete SQL pour trouver le matériel
-			// const hardware = hardwareService.getHardwareByBarCode(this.hardwareNumber);
+			const hardware = this.gridNotBorrowedData.find(item => item["Code barre"] === this.hardwareNumber);
 
 			// Si le matériel est trouvé, mettre à jour les informations
 			if (hardware) {
@@ -145,7 +154,7 @@ export default {
 			// Requête SQL pour emprunter le matériel
 			if (this.studentNumber !== '' && this.hardwareNumber !== '' && this.startDate !== '' && this.endDate !== '') {
 				// Vérifier si le numéro étudiant, le code barre et les dates existent
-				
+
 
 				// Validation de base pour vérifier que les dates sont définies
 				if (!this.startDate || !this.endDate) {
@@ -184,6 +193,9 @@ export default {
 					purchaseDate: ''
 				};
 
+				this.startDate = '';
+				this.endDate = '';
+
 
 			} else {
 				// Affichage d'une erreur si les champs ne sont pas remplis sur l'écran
@@ -204,6 +216,7 @@ export default {
 	<div class="body">
 		<div class="to-borrow">
 			<div class="no-borrowed-list">
+				<h2>Liste des matériels libres</h2>
 				<div class="search-bar">
 					<form id="search">
 						Rechercher : <input name="query" v-model="searchNotBorrowedQuery" />
@@ -277,7 +290,7 @@ export default {
 			</div>
 		</div>
 		<div class="borrowed-list">
-			<h2>Liste du matériel</h2>
+			<h2>Liste des matériels empruntés</h2>
 			<div class="search-bar">
 				<form id="search">
 					Rechercher : <input name="query" v-model="searchBorrowedQuery" />
@@ -311,7 +324,13 @@ export default {
 		border-radius: 10px;
 		background-color: #FFFFFF;
 
+		h2 {
+			padding-top: 10px;
+			margin: 0;
+		}
+
 		.search-bar {
+			margin-top: 20px;
 			display: flex;
 			justify-content: space-between;
 		}
@@ -340,6 +359,7 @@ export default {
 				border: 1px solid #D9D9D9;
 				width: 70%;
 			}
+
 			button {
 				border-radius: 5px;
 				padding: 5px 20px;

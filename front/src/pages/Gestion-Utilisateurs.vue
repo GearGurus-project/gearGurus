@@ -4,7 +4,7 @@
         <div class="user-management">
             <div class="user-list">
                 <form id="search-user">
-                    Rechercher <input v-model="searchQuery" placeholder="Entrer le numéro utilisateur" />
+                    Rechercher <input v-model="searchQuery" placeholder="Entrer le prénom utilisateur" />
                 </form>
                 <GridComponent
                     :heroes="filteredUsers"
@@ -15,15 +15,15 @@
             <div class="user-forms">
                 <h2>Ajouter un utilisateur</h2>
                 <form id="add-user" @submit.prevent="addUser">
-                    <input v-model="newUser.number" type="text" placeholder="Numéro" />
-                    <input v-model="newUser.lastName" type="text" placeholder="Nom" />
                     <input v-model="newUser.firstName" type="text" placeholder="Prénom" />
-                    <input v-model="newUser.group" type="text" placeholder="Groupe" />
+                    <input v-model="newUser.lastName" type="text" placeholder="Nom" />
+                    <input v-model="newUser.password" type="password" placeholder="Mot de passe" />
+                    <input v-model="newUser.role" type="text" placeholder="Rôle" />
                     <button type="submit">Ajouter</button>
                 </form>
                 <h2>Supprimer un utilisateur</h2>
                 <form id="delete-user" @submit.prevent="deleteUser">
-                    <input v-model="deleteUserNumber" type="text" placeholder="Numéro utilisateur" />
+                    <input v-model="deleteUserFirstName" type="text" placeholder="Prénom utilisateur" />
                     <button type="submit">Supprimer</button>
                 </form>
             </div>
@@ -33,6 +33,7 @@
 
 <script>
 import GridComponent from "../components/Grid-Component.vue";
+import userService from "@/services/userService";
 
 export default {
     name: 'GestionUtilisateurs',
@@ -42,19 +43,15 @@ export default {
     data() {
         return {
             searchQuery: '',
-            gridColumns: ["Numéro", "Nom", "Prénom", "Groupe"],
-            users: [
-                { Numéro: '1001', Nom: 'Doe', Prénom: 'John', Groupe: 'A' },
-                { Numéro: '1002', Nom: 'Smith', Prénom: 'Jane', Groupe: 'B' },
-                // Ajoutez d'autres utilisateurs si nécessaire
-            ],
+            gridColumns: ["Prénom", "Nom", "Rôle"],
+            users: [],
             newUser: {
-                number: '',
-                lastName: '',
                 firstName: '',
-                group: ''
+                lastName: '',
+                password: '',
+                role: ''
             },
-            deleteUserNumber: ''
+            deleteUserFirstName: ''
         };
     },
     computed: {
@@ -64,32 +61,51 @@ export default {
             }
             const filterKey = this.searchQuery.toLowerCase();
             return this.users.filter(user => {
-                return Object.keys(user).some(key =>
-                    String(user[key]).toLowerCase().includes(filterKey)
-                );
+                return user.firstName.toLowerCase().includes(filterKey);
             });
         }
     },
     methods: {
-        addUser() {
-            if (this.newUser.number && this.newUser.lastName && this.newUser.firstName && this.newUser.group) {
-                this.users.push({
-                    Numéro: this.newUser.number,
-                    Nom: this.newUser.lastName,
-                    Prénom: this.newUser.firstName,
-                    Groupe: this.newUser.group
-                });
-                this.newUser = { number: '', lastName: '', firstName: '', group: '' };
-                console.log("Utilisateur ajouté avec succès.");
+        async fetchUsers() {
+            try {
+                const response = await userService.getUsers();
+                this.users = response.data;
+            } catch (error) {
+                console.error("Erreur lors de la récupération des utilisateurs :", error);
+            }
+        },
+        async addUser() {
+            if (this.newUser.firstName && this.newUser.lastName && this.newUser.password && this.newUser.role) {
+                try {
+                    const response = await userService.createUser(this.newUser);
+                    this.users.push(response.data);
+                    this.newUser = { firstName: '', lastName: '', password: '', role: '' };
+                    console.log("Utilisateur ajouté avec succès.");
+                } catch (error) {
+                    console.error("Erreur lors de l'ajout de l'utilisateur :", error);
+                }
             } else {
                 console.log("Veuillez remplir tous les champs.");
             }
         },
-        deleteUser() {
-            this.users = this.users.filter(user => user.Numéro !== this.deleteUserNumber);
-            this.deleteUserNumber = '';
-            console.log("Utilisateur supprimé avec succès.");
+        async deleteUser() {
+            try {
+                const userToDelete = this.users.find(user => user.firstName === this.deleteUserFirstName);
+                if (userToDelete) {
+                    await userService.deleteUser(userToDelete.id);
+                    this.users = this.users.filter(user => user.id !== userToDelete.id);
+                    this.deleteUserFirstName = '';
+                    console.log("Utilisateur supprimé avec succès.");
+                } else {
+                    console.log("Utilisateur non trouvé.");
+                }
+            } catch (error) {
+                console.error("Erreur lors de la suppression de l'utilisateur :", error);
+            }
         }
+    },
+    mounted() {
+        this.fetchUsers();
     }
 };
 </script>

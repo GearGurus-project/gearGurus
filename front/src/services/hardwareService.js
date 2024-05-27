@@ -10,6 +10,9 @@ export default {
   getHardwareByBarCode(hardwareNumber) {
     return apiClient.get(`/barcode/${hardwareNumber}`);
   },
+  postHardware(hardware) {
+	return apiClient.post('', hardware);
+  },
   getHardware() {
 	return apiClient.get('');
   },

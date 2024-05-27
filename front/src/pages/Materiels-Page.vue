@@ -160,7 +160,7 @@ export default {
 				<label for="price">Prix</label>
 				<input type="number" name="price" id="price" v-model="hardwareItem.price" />
 				<label for="barcode">Code barre : </label>
-				<input type="text" name="barcode" id="barcode" v-model="hardwareItem.barCode" />
+				<input type="text" name="barCode" id="barCode" v-model="hardwareItem.barCode"/>
 				<button type="submit">Ajouter</button>
 				<button @click="resetForm">Annuler</button>
 			</form>

@@ -22,9 +22,28 @@ public class HardwareController {
     public Hardware getHardwareById(@PathVariable Long id) {
         return hardwareServices.getHardwareById(id);
     }
+    @GetMapping("/barcode/{barcode}")
+    public Hardware getHardwareByBarCode(@PathVariable String barcode) {
+        return hardwareServices.getHardwareByBarCode(barcode);
+    }
     @PostMapping
     public Hardware createHardware(@RequestBody Hardware Hardware) {
         return hardwareServices.saveHardware(Hardware);
+    }
+
+    @PutMapping("/barcode/{barcode}")
+    public Hardware updateHardwareByBarcode(@RequestBody Hardware Hardware) {
+        Hardware existingHardware = hardwareServices.getHardwareByBarCode(Hardware.getBarCode());
+        if (existingHardware != null) {
+            existingHardware.setModel(Hardware.getModel());
+            existingHardware.setBarCode(Hardware.getBarCode());
+            existingHardware.setPrice(Hardware.getPrice());
+            existingHardware.setCategory(Hardware.getCategory());
+            existingHardware.setProvider(Hardware.getProvider());
+            existingHardware.setDatePurchase(Hardware.getDatePurchase());
+            return hardwareServices.saveHardware(existingHardware);
+        }
+        return null;
     }
     @PutMapping("/{id}")
     public Hardware updateHardware(@PathVariable Long id, @RequestBody Hardware Hardware) {
@@ -43,6 +62,11 @@ public class HardwareController {
     @DeleteMapping("/{id}")
     public void deleteHardware(@PathVariable Long id) {
         hardwareServices.deleteHardware(id);
+    }
+
+    @DeleteMapping("/barcode/{barcode}")
+    public void deleteHardwareByBarcode(@PathVariable String barcode) {
+        hardwareServices.deleteHardwareByBarcode(barcode);
     }
 
 }

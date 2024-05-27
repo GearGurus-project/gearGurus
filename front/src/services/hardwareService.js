@@ -8,7 +8,7 @@ const apiClient = axios.create({
 
 export default {
   getHardwareByBarCode(hardwareNumber) {
-    return apiClient.get(`/${hardwareNumber}`);
+    return apiClient.get(`/barcode/${hardwareNumber}`);
   },
   getHardware() {
 	return apiClient.get('');
@@ -16,10 +16,10 @@ export default {
   createHardware(hardware) {
 	return apiClient.post('/', hardware);
   },
-  updateHardware(hardware) {
-	return apiClient.put(`/${hardware.barCode}`, hardware);
+  updateHardwareByBarCode(hardware) {
+	return apiClient.put(`/barcode/${hardware.barCode}`, hardware);
   },
-  deleteHardware(hardwareNumber) {
-	return apiClient.delete(`/${hardwareNumber}`);
+  deleteHardwareByBarCode(hardwareNumber) {
+	return apiClient.delete(`/barcode/${hardwareNumber}`);
   }
 };

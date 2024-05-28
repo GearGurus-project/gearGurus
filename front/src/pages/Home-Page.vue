@@ -60,7 +60,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 4%;
+    margin-bottom: 25%;
     margin-top: 4%;
   }
   

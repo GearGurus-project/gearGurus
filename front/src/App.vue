@@ -1,13 +1,16 @@
 <template>
   <div id="app">
-    <Navbar />
-	<router-view></router-view>
-    <Footer />
+    <template v-if="showNavbar">
+      <Navbar />
+    </template>
+    <router-view></router-view>
+    <template v-if="showFooter">
+      <Footer />
+    </template>
   </div>
 </template>
 
 <script>
-
 import Navbar from './components/Nav-Bar.vue'
 import Footer from './components/Footer-Component.vue'
 
@@ -16,6 +19,30 @@ export default {
   components: {
     Navbar,
     Footer
+  },
+  data() {
+    return {
+      showNavbar: true,
+      showFooter: true
+    };
+  },
+  watch: {
+    // Watch for route changes
+    '$route'(to) {
+      this.updateNavbarAndFooterVisibility(to);
+    }
+  },
+  created() {
+    // Initially, update navbar and footer visibility based on current route
+    this.updateNavbarAndFooterVisibility(this.$route);
+  },
+  methods: {
+    updateNavbarAndFooterVisibility(route) {
+      // Determine if navbar should be shown based on route
+      this.showNavbar = route.path !== '/' && route.path !== '/Login2';
+      // Determine if footer should be shown based on route
+      this.showFooter = route.path !== '/' && route.path !== '/Login2';
+    }
   }
 }
 </script>

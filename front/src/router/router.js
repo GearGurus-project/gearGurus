@@ -13,8 +13,8 @@ import NotFoundPage from '../pages/Not-Found-Page.vue';
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Login1',
+    component: Login1
   },
   {
     path: '/Emprunts',
@@ -23,9 +23,9 @@ const routes = [
   },
 
   {
-    path: '/Login1',
-    name: 'Login1',
-    component: Login1
+    path: '/Home',
+    name: 'Home',
+    component: Home
   },
   {
     path: '/Login2',

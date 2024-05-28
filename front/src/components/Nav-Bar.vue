@@ -2,7 +2,7 @@
 	<div>
 		<nav class="navbar navbar-expand-md navbar-dark navbar-custom">
 			<!-- Logo to the right -->
-			<router-link to="/" class="navbar-brand ml-auto">
+			<router-link to="/Home" class="navbar-brand ml-auto">
 				<img src="../assets/Efrei-Logo.png" alt="Logo">
 			</router-link>
 
@@ -10,7 +10,7 @@
 			<div class="navbar-brand mx-auto">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<router-link to="/" class="nav-link">Accueil</router-link>
+						<router-link to="/Home" class="nav-link">Accueil</router-link>
 					</li>
 					<li class="nav-item">
 						<router-link to="/emprunts" class="nav-link">Emprunts</router-link>
@@ -27,7 +27,8 @@
 			<!-- Disconnect button to the right -->
 			<div>
 				<button class="btn disconnect-btn" @click="disconnect">
-					<img src="../assets/LogOut.png" alt="Disconnect">
+					<router-link to="/"><img src="../assets/LogOut.png" alt="Disconnect"></router-link>
+
 				</button>
 			</div>
 		</nav>

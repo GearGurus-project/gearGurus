@@ -14,7 +14,7 @@
 	<name>back</name>
 	<description>Spring boot backend application</description>
 	<properties>
-		<java.version>22</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

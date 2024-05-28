@@ -11,8 +11,8 @@
         <h2>Connexion</h2>
         <p>Utiliser votre compte EFREI</p>
         <form>
-          <input type="email" placeholder="Email">
-          <input type="password" placeholder="Password">
+          <input type="name" placeholder="Nom de famille">
+          <input type="password" placeholder="Mot de passe">
           <button class="login-button" @click="goHome">Se connecter</button>
         </form>
       </div>

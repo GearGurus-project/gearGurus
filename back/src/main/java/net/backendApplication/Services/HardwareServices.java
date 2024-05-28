@@ -28,9 +28,11 @@ public class HardwareServices {
     public void deleteHardware(Long id) {
         hardwareRepository.deleteById(id);
     }
-
     public void deleteHardwareByBarCode(String barCode) {
-        hardwareRepository.deleteByBarCode(barCode);
+        Hardware hardware = hardwareRepository.findByBarCode(barCode);
+        if (hardware != null) {
+            hardwareRepository.deleteById(hardware.getId());
+        }
     }
 
 }

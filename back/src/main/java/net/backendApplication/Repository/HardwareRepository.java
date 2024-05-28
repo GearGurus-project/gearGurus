@@ -4,8 +4,5 @@ import net.backendApplication.Entities.Hardware;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface HardwareRepository extends JpaRepository<Hardware, Long> {
-
     Hardware findByBarCode(String barCode);
-
-    void deleteByBarCode(String barCode);
 }

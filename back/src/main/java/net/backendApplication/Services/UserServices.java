@@ -23,4 +23,9 @@ public class UserServices {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    public User findByLastName(String lastName) {
+        return userRepository.findByLastName(lastName);
+    }
+
 }

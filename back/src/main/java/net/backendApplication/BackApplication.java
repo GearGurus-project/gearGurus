@@ -59,18 +59,10 @@ public class BackApplication implements CommandLineRunner {
 				.provider("Apple")
 				.build();
 
-		User user1 = User.builder()
-				.firstName("Jean")
-				.lastName("Dupichot")
-				.role("admin")
-				.password("coucouliko")
-				.build();
-
 		studentRepository.save(student1);
 		studentRepository.save(student2);
 		studentRepository.save(student3);
 
 		hardwareRepository.save(hardware1);
-		userRepository.save(user1);
 	}
 }

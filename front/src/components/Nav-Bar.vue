@@ -27,8 +27,7 @@
 			<!-- Disconnect button to the right -->
 			<div>
 				<button class="btn disconnect-btn" @click="disconnect">
-					<router-link to="/"><img src="../assets/LogOut.png" alt="Disconnect"></router-link>
-
+					<img src="../assets/LogOut.png" alt="Disconnect">
 				</button>
 			</div>
 		</nav>
@@ -39,7 +38,10 @@
 export default {
 	methods: {
 		disconnect() {
-			// Handle disconnect logic here
+			// Clear the authentication token from localStorage
+			localStorage.removeItem('authToken');
+			// Redirect to the login page
+			this.$router.push('/');
 		}
 	}
 }
@@ -108,5 +110,5 @@ export default {
 
 .disconnect-btn img {
 	max-height: 40px;
-}</style>
-  
+}
+</style>

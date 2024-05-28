@@ -6,6 +6,8 @@ import Login2 from '../pages/LogIn2-Page.vue';
 import Materiels from '../pages/Materiels-Page.vue';
 import Statistiques from '../pages/Statistiques-Page.vue';
 import NotFoundPage from '../pages/Not-Found-Page.vue';
+import { isAuthenticated } from '@/auth';
+
 
 
 
@@ -19,13 +21,15 @@ const routes = [
   {
     path: '/Emprunts',
     name: 'Emprunts',
-    component: Emprunts
+    component: Emprunts,
+    meta: { requiresAuth: true } 
   },
 
   {
     path: '/Home',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/Login2',
@@ -35,12 +39,14 @@ const routes = [
   {
     path: '/Materiels',
     name: 'Materiels',
-    component: Materiels
+    component: Materiels,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/Statistiques',
     name: 'Statistiques',
-    component: Statistiques
+    component: Statistiques,
+    meta: { requiresAuth: true } 
   },
   {
 	path : '/:pathMatch(.*)*',
@@ -53,5 +59,20 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isAuthenticated()) {
+      next('/'); // Redirect to the first login page if not authenticated
+    } else {
+      next();
+    }
+  } else if (to.name === 'Login1' && isAuthenticated()) {
+    next('/Home'); // Redirect to Home if already authenticated and trying to access Login1
+  } else {
+    next();
+  }
+});
+
 
 export default router;

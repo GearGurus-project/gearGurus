@@ -139,13 +139,11 @@ export default {
 		</div>
 
 		<div v-if="showAddForm" class="add-hardware-form">
-			<h2>"Ajouter du matériel"</h2>
+			<h2>Ajouter du matériel</h2>
 			<form @submit.prevent="postHardwareItem()">
 				<label for="category">Catégorie</label>
 				<select name="category" id="category" v-model="hardwareItem.category">
 					<option value="Ordinateur">Ordinateur</option>
-					<option value="Imprimante">Imprimante</option>
-					<option value="Scanner">Scanner</option>
 					<option value="Écran">Écran</option>
 					<option value="Clavier">Clavier</option>
 					<option value="Souris">Souris</option>
@@ -168,7 +166,7 @@ export default {
 
 		<div v-if="showDeleteForm" class="delete-hardware-form">
 			<h2>Supprimer du matériel</h2>
-			<form @submit.prevent="deleteHardwareItem">
+			<form @submit.prevent="deleteHardwareItem()">
 				<label for="hardware-id">ID du matériel : </label>
 				<input type="text" name="hardware-id" id="hardware-id" v-model="hardwareItem.id" />
 				<button type="submit">Supprimer</button>

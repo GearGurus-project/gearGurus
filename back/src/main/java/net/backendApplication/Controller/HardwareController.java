@@ -50,13 +50,13 @@ public class HardwareController {
     public Hardware updateHardware(@PathVariable Long id, @RequestBody Hardware Hardware) {
         Hardware existingHardware = hardwareServices.getHardwareById(id);
         if (existingHardware != null) {
-            existingHardware.setModel(existingHardware.getModel());
-            existingHardware.setBarCode(existingHardware.getBarCode());
-            existingHardware.setPrice(existingHardware.getPrice());
-            existingHardware.setCategory(existingHardware.getCategory());
-            existingHardware.setProvider(existingHardware.getProvider());
-            existingHardware.setDatePurchase(existingHardware.getDatePurchase());
-            return hardwareServices.saveHardware(existingHardware);
+            existingHardware.setModel(Hardware.getModel());
+            existingHardware.setBarCode(Hardware.getBarCode());
+            existingHardware.setPrice(Hardware.getPrice());
+            existingHardware.setCategory(Hardware.getCategory());
+            existingHardware.setProvider(Hardware.getProvider());
+            existingHardware.setDatePurchase(Hardware.getDatePurchase());
+            return hardwareServices.saveHardware(Hardware);
         }
         return null;
     }

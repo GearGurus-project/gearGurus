@@ -2,6 +2,7 @@ package net.backendApplication.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
 import java.util.Set;
 
 @Getter

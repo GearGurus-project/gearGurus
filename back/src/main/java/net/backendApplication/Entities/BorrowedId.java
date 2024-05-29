@@ -6,29 +6,31 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-class BorrowedId implements Serializable {
+public class BorrowedId implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "id_hardware")
-    private int idHardware;
+    private Long idHardware;
 
     @Column(name = "id_student")
-    private int idStudent;
+    private Long idStudent;
 
     // Getters and setters, equals and hashCode methods
 
-    public int getIdHardware() {
+    public Long getIdHardware() {
         return idHardware;
     }
 
-    public void setIdHardware(int idHardware) {
+    public void setIdHardware(Long idHardware) {
         this.idHardware = idHardware;
     }
 
-    public int getIdStudent() {
+    public Long getIdStudent() {
         return idStudent;
     }
 
-    public void setIdStudent(int idStudent) {
+    public void setIdStudent(Long idStudent) {
         this.idStudent = idStudent;
     }
 
@@ -37,7 +39,7 @@ class BorrowedId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BorrowedId that = (BorrowedId) o;
-        return idHardware == that.idHardware && idStudent == that.idStudent;
+        return Objects.equals(idHardware, that.idHardware) && Objects.equals(idStudent, that.idStudent);
     }
 
     @Override

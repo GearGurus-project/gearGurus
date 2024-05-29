@@ -4,6 +4,7 @@ import net.backendApplication.Entities.Hardware;
 import net.backendApplication.Repository.HardwareRepository;
 import net.backendApplication.Services.HardwareServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -67,6 +68,11 @@ public class HardwareController {
     @DeleteMapping("/barcode/{barcode}")
     public void deleteHardwareByBarCode(@PathVariable String barcode) {
         hardwareServices.deleteHardwareByBarCode(barcode);
+    }
+    @GetMapping("/available")
+    public ResponseEntity<List<Hardware>> getHardwareNotBorrowed() {
+        List<Hardware> availableHardware = hardwareServices.getHardwareNotBorrowed();
+        return ResponseEntity.ok(availableHardware);
     }
 
 }

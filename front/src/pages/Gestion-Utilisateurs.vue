@@ -80,8 +80,8 @@
     </div>
   </div>
 </template>
-  
-  <script>
+
+<script>
 import GridComponent from "../components/Grid-Component.vue";
 import userService from "@/services/userService";
 
@@ -295,15 +295,6 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
-.error-message {
-  color: red;
-  margin-top: 10px;
-}
-</style>
-  
- 
 
 <style scoped>
 .body {

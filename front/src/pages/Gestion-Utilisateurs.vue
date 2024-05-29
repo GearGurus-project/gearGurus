@@ -26,8 +26,14 @@
             type="password"
             placeholder="Mot de passe"
           />
-          <input v-model="newUser.role" type="text" placeholder="Rôle" />
+          <select v-model="newUser.role">
+            <option value="" disabled>Choisissez un rôle</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </select>
           <button type="submit">Ajouter</button>
+          <!-- Afficher un message d'erreur si le mot de passe n'est pas valide -->
+          <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
         </form>
         <h2>Supprimer un utilisateur</h2>
         <form id="delete-user" @submit.prevent="deleteUser">
@@ -63,7 +69,8 @@ export default {
         password: "",
         role: "",
       },
-      deleteUserId: "", // Change here to use ID for deletion
+      deleteUserId: "", // Changed to use ID for deletion
+      errorMessage: "", // Ajouter un champ pour stocker le message d'erreur
     };
   },
   computed: {
@@ -101,10 +108,11 @@ export default {
       }));
     },
     async addUser() {
+      const passwordValidation = this.validatePassword(this.newUser.password);
       if (
         this.newUser.firstName &&
         this.newUser.lastName &&
-        this.newUser.password &&
+        passwordValidation.valid &&
         this.newUser.role
       ) {
         try {
@@ -116,13 +124,43 @@ export default {
             password: "",
             role: "",
           };
+          this.errorMessage = ""; // Réinitialiser le message d'erreur après un ajout réussi
           console.log("Utilisateur ajouté avec succès.");
         } catch (error) {
           console.error("Erreur lors de l'ajout de l'utilisateur :", error);
         }
       } else {
-        console.log("Veuillez remplir tous les champs.");
+        console.log("Veuillez remplir tous les champs correctement.");
+        if (!passwordValidation.valid) {
+          this.errorMessage = passwordValidation.message; // Mettre à jour le message d'erreur
+        }
       }
+    },
+    validatePassword(password) {
+      const minLength = 12;
+      const hasNumber = /\d/;
+      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+
+      if (password.length < minLength) {
+        return {
+          valid: false,
+          message: "Le mot de passe doit contenir au moins 12 caractères.",
+        };
+      }
+      if (!hasNumber.test(password)) {
+        return {
+          valid: false,
+          message: "Le mot de passe doit contenir au moins un chiffre.",
+        };
+      }
+      if (!hasSpecialChar.test(password)) {
+        return {
+          valid: false,
+          message:
+            "Le mot de passe doit contenir au moins un caractère spécial.",
+        };
+      }
+      return { valid: true, message: "" };
     },
     async deleteUser() {
       try {
@@ -150,11 +188,16 @@ export default {
   },
 };
 </script>
-  
+ 
 
 <style scoped>
 .body {
   margin: 0 40px 20px 40px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
 }
 
 h1 {

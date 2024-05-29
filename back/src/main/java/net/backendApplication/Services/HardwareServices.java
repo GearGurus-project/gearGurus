@@ -1,5 +1,6 @@
 package net.backendApplication.Services;
 
+import net.backendApplication.Entities.Borrowed;
 import net.backendApplication.Entities.Hardware;
 import net.backendApplication.Entities.User;
 import net.backendApplication.Repository.BorrowedRepository;
@@ -38,12 +39,12 @@ public class HardwareServices {
             hardwareRepository.deleteById(hardware.getId());
         }
     }
-    public List<Hardware> getHardwareNotBorrowed() {
+    public List<Hardware>
+    getHardwareNotBorrowed() {
         List<Hardware> allHardware = hardwareRepository.findAll();
-        List<Integer> allBorrowedHardwareIds = borrowedRepository.findAllBorrowedHardwareIds();
 
         return allHardware.stream()
-                .filter(hardware -> !allBorrowedHardwareIds.contains(hardware.getId()))
+                .filter(hardware -> hardware.getBorrowedRecords().isEmpty())
                 .collect(Collectors.toList());
     }
 

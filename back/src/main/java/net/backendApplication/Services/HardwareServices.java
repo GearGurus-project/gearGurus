@@ -18,7 +18,6 @@ public class HardwareServices {
     public Hardware getHardwareById(Long id) {
         return hardwareRepository.findById(id).orElse(null);
     }
-
     public Hardware getHardwareByBarCode(String barCode) {
         return hardwareRepository.findByBarCode(barCode);
     }

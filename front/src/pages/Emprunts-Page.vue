@@ -27,6 +27,7 @@ export default {
 			},
 			hardwareNumber: '',
 			hardwareInfo: {
+				barCode: '',
 				category: '',
 				model: '',
 				provider: '',
@@ -39,15 +40,19 @@ export default {
 			showRetakeForm: false,
 			showEditForm: false,
 			retake: {
-				hardwareId: '',
-				studentId: ''
+				hardwareBarCode: '',
+				studentNumber: ''
 			},
 			toUpdateBorrowedItem: {
-				hardwareId: '',
-				studentId: '',
-				startDate: '',
-				endDate: ''
+				id: {
+					idStudent: '',
+					idHardware: ''
+				},
+				dateDebut: '',
+				dateFin: ''
 			},
+			forUpdateHardwareBarCode: '',
+			forUpdateStudentNumber: ''
 		};
 	},
 	computed: {
@@ -76,6 +81,7 @@ export default {
 				// Requête SQL pour obtenir la liste des matériels
 				const hardwareList = await hardwareService.getAvailableHardware();
 				// Mettre à jour la liste des matériels
+				this.gridNotBorrowedData = [];
 				this.gridNotBorrowedData = hardwareList.data.map(hardware => {
 					return {
 						"Catégorie": hardware.category,
@@ -93,20 +99,34 @@ export default {
 			try {
 				// Requête SQL pour obtenir la liste des matériels empruntés
 				const borrowedList = await borrowedService.getBorrowedItems();
-				// Mettre à jour la liste des matériels empruntés
-				this.gridBorrowedData = borrowedList.data.map(borrowedItem => {
-					return {
-						"Numéro étudiant": borrowedItem.studentNumber,
-						"Nom": borrowedItem.studentLastName,
-						"Prénom": borrowedItem.studentFirstName,
-						"Groupe": borrowedItem.studentGroup,
-						"Catégorie": borrowedItem.hardwareCategory,
-						"Modèle": borrowedItem.hardwareModel,
-						"Code barre": borrowedItem.hardwareBarCode,
-						"Date de début": borrowedItem.startDate,
-						"Date de fin": borrowedItem.endDate
-					};
-				});
+				const length = borrowedList.data.length;
+				this.gridBorrowedData = [];
+
+				for (let i = 0; i < length; i++) {
+					const idHardware = borrowedList.data[i].id.idHardware;
+					const idStudent = borrowedList.data[i].id.idStudent;
+
+					const hardwareDetails = await hardwareService.getHardwareById(idHardware);
+					const studentDetails = await studentService.getStudentById(idStudent);
+
+					let startDate = borrowedList.data[i].dateDebut;
+					let endDate = borrowedList.data[i].dateFin;
+					startDate = startDate.substring(0, 10);
+					endDate = endDate.substring(0, 10);
+
+
+					this.gridBorrowedData.push({
+						"Numéro étudiant": studentDetails.data.studentNumber,
+						"Nom": studentDetails.data.lastName,
+						"Prénom": studentDetails.data.firstName,
+						"Groupe": studentDetails.data.group_student,
+						"Catégorie": hardwareDetails.data.category,
+						"Modèle": hardwareDetails.data.model,
+						"Code barre": hardwareDetails.data.barCode,
+						"Date de début": startDate,
+						"Date de fin": endDate
+					});
+				}
 			} catch (error) {
 				console.error(error);
 			}
@@ -150,6 +170,7 @@ export default {
 				// Si le matériel est trouvé, mettre à jour les informations
 				if (hardware) {
 					this.hardwareInfo = {
+						barCode: hardware.data.barCode,
 						category: hardware.data.category,
 						model: hardware.data.model,
 						provider: hardware.data.provider,
@@ -165,48 +186,48 @@ export default {
 		async handleBorrowClick() {
 			// Vérifier si les champs sont renseignés
 			if (this.studentNumber === '' || this.hardwareNumber === '' || this.startDate === '' || this.endDate === '') {
-				if(this.studentNumber === '' && this.hardwareNumber === '' && this.startDate === '' && this.endDate === '') {
+				if (this.studentNumber === '' && this.hardwareNumber === '' && this.startDate === '' && this.endDate === '') {
 					alert('Veuillez renseigner tous les champs.');
-				} 
+				}
 				else if (this.studentNumber === '' && this.hardwareNumber === '' && this.startDate === '') {
 					alert('Veuillez renseigner le numéro étudiant, le code barre et la date de début.');
-				} 
+				}
 				else if (this.studentNumber === '' && this.hardwareNumber === '' && this.endDate === '') {
 					alert('Veuillez renseigner le numéro étudiant, le code barre et la date de fin.');
-				} 
+				}
 				else if (this.studentNumber === '' && this.startDate === '' && this.endDate === '') {
 					alert('Veuillez renseigner le numéro étudiant, la date de début et la date de fin.');
-				} 
+				}
 				else if (this.hardwareNumber === '' && this.startDate === '' && this.endDate === '') {
 					alert('Veuillez renseigner le code barre, la date de début et la date de fin.');
-				} 
+				}
 				else if (this.studentNumber === '' && this.hardwareNumber === '') {
 					alert('Veuillez renseigner le numéro étudiant et le code barre.');
-				} 
+				}
 				else if (this.studentNumber === '' && this.startDate === '') {
 					alert('Veuillez renseigner le numéro étudiant et la date de début.');
-				} 
+				}
 				else if (this.studentNumber === '' && this.endDate === '') {
 					alert('Veuillez renseigner le numéro étudiant et la date de fin.');
-				} 
+				}
 				else if (this.hardwareNumber === '' && this.startDate === '') {
 					alert('Veuillez renseigner le code barre et la date de début.');
-				} 
+				}
 				else if (this.hardwareNumber === '' && this.endDate === '') {
 					alert('Veuillez renseigner le code barre et la date de fin.');
-				} 
+				}
 				else if (this.startDate === '' && this.endDate === '') {
 					alert('Veuillez renseigner la date de début et la date de fin.');
-				} 
+				}
 				else if (this.studentNumber === '') {
 					alert('Veuillez renseigner le numéro étudiant.');
-				} 
+				}
 				else if (this.hardwareNumber === '') {
 					alert('Veuillez renseigner le code barre.');
-				} 
+				}
 				else if (this.startDate === '') {
 					alert('Veuillez renseigner la date de début.');
-				} 
+				}
 				else if (this.endDate === '') {
 					alert('Veuillez renseigner la date de fin.');
 				}
@@ -215,17 +236,23 @@ export default {
 
 			// Requête SQL pour emprunter le matériel
 			try {
+				const Student = await studentService.getStudentByStudentNumber(this.studentNumber);
+				const Hardware = await hardwareService.getHardwareByBarCode(this.hardwareNumber);
 				const borrowedItem = {
-					studentNumber: this.studentNumber,
-					hardwareBarCode: this.hardwareNumber,
-					startDate: this.startDate,
-					endDate: this.endDate
+					id: {
+						idStudent: Student.data.id,
+						idHardware: Hardware.data.id,
+					},
+					dateDebut: this.startDate,
+					dateFin: this.endDate
 				};
 
 				const response = await borrowedService.borrowHardware(borrowedItem);
 
 				if (response.status === 200) {
 					alert('Matériel emprunté.');
+					this.getAvailableHardwareItemList();
+					this.getBorrowedItemList();
 					this.resetForm();
 				} else {
 					alert('Erreur lors de l\'emprunt.');
@@ -237,29 +264,153 @@ export default {
 		handlePeriodSubmit() {
 
 		},
-		searchBorrowedItem() {
-			// Requête SQL pour rechercher l'emprunt
-			console.log('Recherche de l\'emprunt.');
+		async searchBorrowedItem() {
+			try {
+				const hardware = await hardwareService.getHardwareByBarCode(this.forUpdateHardwareBarCode);
+				const student = await studentService.getStudentByStudentNumber(this.forUpdateStudentNumber);
 
-			// Réinitialiser le formulaire
-			this.showEditForm = false;
+				const idHardware = hardware.data.id;
+				const idStudent = student.data.id;
 
-			// Réinitialiser les champs
-			this.searchBarCode = '';
-			this.toUpdateBorrowedItem = {
-				hardwareId: '',
-				studentId: '',
-				startDate: '',
-				endDate: ''
-			};
+				console.log(idHardware, idStudent);
+
+				const borrowedItem = await borrowedService.getBorrowedItemById(idHardware, idStudent);
+
+				let dateDebut = borrowedItem.data.dateDebut;
+				let dateFin = borrowedItem.data.dateFin;
+
+				dateDebut = dateDebut.substring(0, 10);
+				dateFin = dateFin.substring(0, 10);
+
+				if (borrowedItem) {
+					this.toUpdateBorrowedItem = {
+						id: {
+							idStudent: student.data.id,
+							idHardware: hardware.data.id
+						},
+						dateDebut: dateDebut,
+						dateFin: dateFin
+					};
+				} else {
+					alert('Emprunt non trouvé.');
+				}
+			} catch (error) {
+				if (error.response) {
+					// The request was made and the server responded with a status code that falls out of the range of 2xx
+					const status = error.response.status;
+
+					if (status === 404) {
+						alert('Emprunt non trouvé.');
+					} else if (status === 500) {
+						alert('Erreur lors de la modification.');
+					} else {
+						alert('Erreur lors de la modification.');
+					}
+				} else if (error.request) {
+					// The request was made but no response was received
+					console.error('Erreur de réseau ou aucune réponse reçue');
+					alert('Erreur réseau. Veuillez réessayer.');
+				} else {
+					// Something happened in setting up the request that triggered an Error
+					console.error('Erreur', error.message);
+					alert('Erreur lors de la modification.');
+				}
+			}
 		},
-		updateBorrowedItem() {
-			// Requête SQL pour mettre à jour l'emprunt
-			console.log('Emprunt mis à jour.');
+		async updateBorrowedItem() {
+			try {
+				const Hardware = await hardwareService.getHardwareByBarCode(this.forUpdateHardwareBarCode);
+				const Student = await studentService.getStudentByStudentNumber(this.forUpdateStudentNumber);
+
+				const studentId = Student.data.id;
+				const hardwareId = Hardware.data.id;
+
+				const dateDebut = this.toUpdateBorrowedItem.dateDebut;
+				const dateFin = this.toUpdateBorrowedItem.dateFin;
+
+				console.log(dateDebut, dateFin);
+
+				const borrowedItem = {
+					id: {
+						idStudent: studentId,
+						idHardware: hardwareId
+					},
+					dateDebut: dateDebut,
+					dateFin: dateFin
+				};
+
+				const response = await borrowedService.updateBorrowedItem( hardwareId, studentId, borrowedItem);
+
+				if (response.status === 200) {
+					alert('Emprunt modifié.');
+					this.getAvailableHardwareItemList();
+					this.getBorrowedItemList();
+					this.resetForm();
+				} else {
+					alert('Erreur lors de la modification.');
+				}
+			} catch (error) {
+				if (error.response) {
+					// The request was made and the server responded with a status code that falls out of the range of 2xx
+					const status = error.response.status;
+
+					if (status === 404) {
+						alert('Emprunt non trouvé.');
+					} else if (status === 500) {
+						alert('Erreur lors de la modification.');
+					} else {
+						alert('Erreur lors de la modification.');
+					}
+				} else if (error.request) {
+					// The request was made but no response was received
+					console.error('Erreur de réseau ou aucune réponse reçue');
+					alert('Erreur réseau. Veuillez réessayer.');
+				} else {
+					// Something happened in setting up the request that triggered an Error
+					console.error('Erreur', error.message);
+					alert('Erreur lors de la modification.');
+				}
+			}
 		},
-		retakeBorrowedItem() {
-			// Requête SQL pour reprendre le matériel
-			console.log('Matériel rendu.');
+		async retakeBorrowedItem() {
+			try {
+				const hardware = await hardwareService.getHardwareByBarCode(this.retake.hardwareBarCode);
+				const student = await studentService.getStudentByStudentNumber(this.retake.studentNumber);
+
+				const response = await borrowedService.retakeHardware(hardware.data.id, student.data.id);
+
+				if (response.status === 204) {
+					alert('Matériel récupéré.');
+					this.getAvailableHardwareItemList();
+					this.getBorrowedItemList();
+					this.resetForm();
+				} else {
+					alert('Erreur lors de la récupération.');
+				}
+			} catch (error) {
+				if (error.response) {
+					// The request was made and the server responded with a status code that falls out of the range of 2xx
+					const status = error.response.status;
+
+					if (status === 404) {
+						alert('Matériel emprunté non trouvé.');
+					} else if (status === 400) {
+						alert('Étudiant non trouvé.');
+					} else if (status === 500) {
+						alert('Erreur lors de la récupération.');
+					} else {
+						alert('Erreur lors de la récupération.');
+					}
+				} else if (error.request) {
+					// The request was made but no response was received
+					console.error('Erreur de réseau ou aucune réponse reçue');
+					alert('Erreur réseau. Veuillez réessayer.');
+				} else {
+					// Something happened in setting up the request that triggered an Error
+					console.error('Erreur', error.message);
+					alert('Erreur lors de la récupération.');
+				}
+			}
 		},
 		resetForm() {
 			this.studentNumber = '';
@@ -270,6 +421,7 @@ export default {
 				group: ''
 			};
 			this.hardwareInfo = {
+				barCode: '',
 				category: '',
 				model: '',
 				provider: '',
@@ -282,19 +434,24 @@ export default {
 			this.showRetakeForm = false;
 			this.showEditForm = false;
 			this.retake = {
-				hardwareId: '',
-				studentId: ''
+				hardwareBarCode: '',
+				studentNumber: ''
 			};
 			this.toUpdateBorrowedItem = {
-				hardwareId: '',
-				studentId: '',
-				startDate: '',
-				endDate: ''
+				id: {
+					idStudent: '',
+					idHardware: ''
+				},
+				dateDebut: '',
+				dateFin: ''
 			};
+			this.forUpdateHardwareBarCode = '';
+			this.forUpdateStudentNumber = '';
 		}
 	},
 	mounted() {
 		this.getAvailableHardwareItemList();
+		this.getBorrowedItemList();
 	},
 };
 </script>
@@ -389,35 +546,35 @@ export default {
 			</div>
 			<GridComponent :heroes="gridBorrowedData" :columns="gridColumnsBorrowed" :filter-key="searchBorrowedQuery" />
 			<button @click="showRetakeForm = true; showEditForm = false;">Récupérer</button>
-			<button @click="showEditForm = true; showRetakeForm = false;">Modifier / prolonger</button>
+			<button @click="showEditForm = true; showRetakeForm = false;">Prolonger</button>
 		</div>
 
 		<div v-if="showRetakeForm" class="retake-borrowed-form">
 			<h2>Matériel rendu</h2>
 			<form @submit.prevent="retakeBorrowedItem()">
-				<label for="borrowed-id">ID du matériel : </label>
-				<input type="text" name="borrowed-id" id="borrowed-id" v-model="retake.hardwareId" />
-				<label for="borrowed-id">ID de l'étudiant : </label>
-				<input type="text" name="borrowed-id" id="borrowed-id" v-model="retake.studentId" />
+				<label for="borrowed-id">Code barre du matériel : </label>
+				<input type="text" name="borrowed-id" id="borrowed-id" v-model="retake.hardwareBarCode" />
+				<label for="borrowed-id">Numéro de l'étudiant : </label>
+				<input type="text" name="borrowed-id" id="borrowed-id" v-model="retake.studentNumber" />
 				<button type="submit">Rendu</button>
 				<button @click="resetForm">Annuler</button>
 			</form>
 		</div>
 
 		<div v-if="showEditForm" class="update-borrowed-form">
-			<h2>Modifier / Prolonger un emprunt</h2>
+			<h2>Prolonger un emprunt</h2>
 			<form id="search-borrowed-item" @submit.prevent="searchBorrowedItem()" class="search-borrowed-item">
-				<input v-model="toUpdateBorrowedItem.hardwareId" type="text" id="searchBarCode"
+				<input v-model="forUpdateHardwareBarCode" type="text" id="searchBarCode"
 					placeholder="Entrer le code barre du matériel emprunté">
+				<input v-model="forUpdateStudentNumber" type="text" id="searchStudentNumber"
+					placeholder="Entrer le numéro étudiant">
 				<button type="submit">Rechercher</button>
 			</form>
 			<form @submit.prevent="updateBorrowedItem()">
-				<label for="studentId">Id de l'étudiant : </label>
-				<input type="text" name="studentId" id="studentId" v-model="toUpdateBorrowedItem.studentId" />
 				<label for="startDate">Date de début : </label>
-				<input type="date" name="startDate" id="startDate" v-model="toUpdateBorrowedItem.startDate" />
-				<label for="endDate">Date d'achat : </label>
-				<input type="date" name="endDate" id="endDate" v-model="toUpdateBorrowedItem.endDate" />
+				<input type="date" name="dateDebut" id="dateDebut" v-model="toUpdateBorrowedItem.dateDebut" />
+				<label for="endDate">Date de fin : </label>
+				<input type="date" name="dateFin" id="dateFin" v-model="toUpdateBorrowedItem.dateFin" />
 				<button type="submit">Modifier</button>
 				<button @click="resetForm">Annuler</button>
 			</form>

@@ -12,11 +12,11 @@ export default {
 	},
 
 	borrowHardware(borrowedItem) {
-		return apiClient.post('/borrow', borrowedItem);
+		return apiClient.post('', borrowedItem);
 	},
 
-	getBorrowedItemById(barCode) {
-		return apiClient.get(`/${barCode}`);
+	getBorrowedItemById(idHardware, idStudent) {
+		return apiClient.get(`/${idHardware}/${idStudent}`);
 	},
 
 	getBorrowedItemsByStudentNumber(studentNumber) {
@@ -31,7 +31,7 @@ export default {
 		return apiClient.put(`/${idHardware}/${idStudent}`, borrowedItem);
 	},
 
-	deleteBorrowedItem(idHardware, idStudent) {
+	retakeHardware(idHardware, idStudent) {
 		return apiClient.delete(`/${idHardware}/${idStudent}`);
 	},
 };

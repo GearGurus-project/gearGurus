@@ -13,4 +13,7 @@ export default {
 	getStudentByStudentNumber(studentNumber) {
 		return apiClient.get(`/number/${studentNumber}`);
 	},
+	getStudentById(studentId) {
+		return apiClient.get(`/${studentId}`);
+	},
 };

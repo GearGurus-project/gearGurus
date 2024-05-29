@@ -8,10 +8,6 @@ import Statistiques from '../pages/Statistiques-Page.vue';
 import NotFoundPage from '../pages/Not-Found-Page.vue';
 import { isAuthenticated } from '@/auth';
 
-
-
-
-
 const routes = [
   {
     path: '/',

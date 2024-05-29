@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -73,6 +74,35 @@ public class HardwareController {
     public ResponseEntity<List<Hardware>> getHardwareNotBorrowed() {
         List<Hardware> availableHardware = hardwareServices.getHardwareNotBorrowed();
         return ResponseEntity.ok(availableHardware);
+    }
+
+    @GetMapping("/available/count")
+    public ResponseEntity<Long> getAvailableHardwareCount() {
+        long count = hardwareServices.getAvailableHardwareCount();
+        return ResponseEntity.ok(count);
+
+    }
+
+    @GetMapping("/best-producer")
+    public ResponseEntity<String> getBestProducer() {
+        String bestProducer = hardwareServices.getBestProducer();
+        return ResponseEntity.ok(bestProducer);
+    }
+
+    @GetMapping("/best-category")
+    public ResponseEntity<String> getBestCategory() {
+        String bestCategory = hardwareServices.getBestCategory();
+        return ResponseEntity.ok(bestCategory);
+    }
+
+    // In HardwareController.java
+    @GetMapping("/count/price-range")
+    public ResponseEntity<List<Long>> countHardwareInPriceRanges() {
+        List<Long> counts = new ArrayList<>();
+        counts.add(hardwareServices.countHardwareInPriceRange(0, 500));
+        counts.add(hardwareServices.countHardwareInPriceRange(500, 1000));
+        counts.add(hardwareServices.countHardwareInPriceRange(1000, Double.MAX_VALUE));
+        return ResponseEntity.ok(counts);
     }
 
 }

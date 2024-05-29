@@ -11,8 +11,10 @@ import java.util.Optional;
 
 @Service
 public class BorrowedServices {
+
     @Autowired
     private BorrowedRepository borrowedRepository;
+
     public List<Borrowed> getAllBorroweds() {
         return borrowedRepository.findAll();
     }
@@ -25,4 +27,9 @@ public class BorrowedServices {
     public void deleteBorrowed(BorrowedId id) {
         borrowedRepository.deleteById(id);
     }
+
+    public List<Object[]> getMostBorrowedMaterials() {
+        return borrowedRepository.findMostBorrowedMaterials();
+    }
+
 }

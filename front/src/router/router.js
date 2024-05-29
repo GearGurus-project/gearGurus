@@ -7,6 +7,7 @@ import Materiels from '../pages/Materiels-Page.vue';
 import Statistiques from '../pages/Statistiques-Page.vue';
 import NotFoundPage from '../pages/Not-Found-Page.vue';
 import { isAuthenticated } from '@/auth';
+import GestionUtilisateurs from '../pages/Gestion-Utilisateurs.vue';
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
 	path : '/:pathMatch(.*)*',
 	name : 'NotFoundPage',
 	component : NotFoundPage
+  },
+  {
+    path: '/GestionUtilisateurs',
+    name: 'GestionUtilisateurs',
+    component: GestionUtilisateurs
   }
 ];
 

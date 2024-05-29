@@ -35,7 +35,7 @@ public class StudentController {
             existingstudent.setGroup_student(existingstudent.getGroup_student());
             existingstudent.setLastName(existingstudent.getLastName());
             existingstudent.setFirstName(existingstudent.getFirstName());
-            existingstudent.setStudent_number(existingstudent.getStudent_number());
+            existingstudent.setStudentNumber(existingstudent.getStudentNumber());
             return studentService.saveStudent(existingstudent);
         }
         return null;

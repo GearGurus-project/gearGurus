@@ -32,7 +32,7 @@ public class Student {
     private String email;
     @Getter
     @Column(name="student_number")
-    private String student_number;
+    private String studentNumber;
     @Setter
     @OneToMany(mappedBy = "id.idStudent")
     private Set<Borrowed> borrowedRecords;

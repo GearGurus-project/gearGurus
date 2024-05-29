@@ -22,7 +22,7 @@ public class BorrowedController {
     }
 
     @GetMapping("/{idHardware}/{idStudent}")
-    public ResponseEntity<Borrowed> getBorrowedRecordById(@PathVariable int idHardware, @PathVariable int idStudent) {
+    public ResponseEntity<Borrowed> getBorrowedRecordById(@PathVariable Long idHardware, @PathVariable Long idStudent) {
         BorrowedId borrowedId = new BorrowedId();
         borrowedId.setIdHardware(idHardware);
         borrowedId.setIdStudent(idStudent);
@@ -36,7 +36,7 @@ public class BorrowedController {
     }
 
     @PutMapping("/{idHardware}/{idStudent}")
-    public ResponseEntity<Borrowed> updateBorrowedRecord(@PathVariable int idHardware, @PathVariable int idStudent, @RequestBody Borrowed borrowedDetails) {
+    public ResponseEntity<Borrowed> updateBorrowedRecord(@PathVariable Long idHardware, @PathVariable Long idStudent, @RequestBody Borrowed borrowedDetails) {
         BorrowedId id = new BorrowedId();
         id.setIdHardware(idHardware);
         id.setIdStudent(idStudent);
@@ -54,7 +54,7 @@ public class BorrowedController {
     }
 
     @DeleteMapping("/{idHardware}/{idStudent}")
-    public ResponseEntity<Void> deleteBorrowedRecord(@PathVariable int idHardware, @PathVariable int idStudent) {
+    public ResponseEntity<Void> deleteBorrowedRecord(@PathVariable Long idHardware, @PathVariable Long idStudent) {
         BorrowedId id = new BorrowedId();
         id.setIdHardware(idHardware);
         id.setIdStudent(idStudent);

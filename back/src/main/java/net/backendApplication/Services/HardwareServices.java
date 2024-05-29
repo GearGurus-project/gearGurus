@@ -2,16 +2,20 @@ package net.backendApplication.Services;
 
 import net.backendApplication.Entities.Hardware;
 import net.backendApplication.Entities.User;
+import net.backendApplication.Repository.BorrowedRepository;
 import net.backendApplication.Repository.HardwareRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class HardwareServices {
     @Autowired
     private HardwareRepository hardwareRepository;
+    @Autowired
+    private BorrowedRepository borrowedRepository;
     public List<Hardware> getAllHardwares() {
         return hardwareRepository.findAll();
     }
@@ -33,6 +37,14 @@ public class HardwareServices {
         if (hardware != null) {
             hardwareRepository.deleteById(hardware.getId());
         }
+    }
+    public List<Hardware> getHardwareNotBorrowed() {
+        List<Hardware> allHardware = hardwareRepository.findAll();
+        List<Integer> allBorrowedHardwareIds = borrowedRepository.findAllBorrowedHardwareIds();
+
+        return allHardware.stream()
+                .filter(hardware -> !allBorrowedHardwareIds.contains(hardware.getId()))
+                .collect(Collectors.toList());
     }
 
 }

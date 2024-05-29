@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-class BorrowedId implements Serializable {
+public class BorrowedId implements Serializable {
 
     @Column(name = "id_hardware")
     private int idHardware;

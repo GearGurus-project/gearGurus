@@ -2,9 +2,16 @@ package net.backendApplication;
 
 public class AuthResponse {
     private String token;
-    private Long id; // User ID
+    private Long id;
+    private String role;
 
     // Getters and setters
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
+    }
     public String getToken() {
         return token;
     }

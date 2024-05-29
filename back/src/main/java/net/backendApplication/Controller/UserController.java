@@ -32,12 +32,12 @@ public class UserController {
     }
 
     @PostMapping
-    public User createStudent(@RequestBody User user) {
+    public User createUser(@RequestBody User user) {
         return userServices.saveUser(user);
     }
 
     @PutMapping("/{id}")
-    public User updateStudent(@PathVariable Long id, @RequestBody User user) {
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
         User existingUser = userServices.getUserById(id);
         if (existingUser != null) {
             existingUser.setFirstName(user.getFirstName());
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStudent(@PathVariable Long id) {
+    public void deleteUser(@PathVariable Long id) {
         userServices.deleteUser(id);
     }
 
@@ -61,7 +61,8 @@ public class UserController {
             String token = jwtUtil.generateToken(existingUser.getLastName(), existingUser.getId(), existingUser.getFirstName(), existingUser.getLastName());
             AuthResponse response = new AuthResponse();
             response.setToken(token);
-            response.setId(existingUser.getId()); // Set the ID of the user in the response
+            response.setId(existingUser.getId());
+            response.setRole(existingUser.getRole());
             return ResponseEntity.ok(response);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");

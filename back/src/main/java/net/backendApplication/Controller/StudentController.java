@@ -5,6 +5,7 @@ import net.backendApplication.Entities.Student;
 import net.backendApplication.Repository.StudentRepository;
 import net.backendApplication.Services.StudentServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class StudentController {
             existingstudent.setGroup_student(existingstudent.getGroup_student());
             existingstudent.setLastName(existingstudent.getLastName());
             existingstudent.setFirstName(existingstudent.getFirstName());
-            existingstudent.setStudent_number(existingstudent.getStudent_number());
+            existingstudent.setStudentNumber(existingstudent.getStudentNumber());
             return studentService.saveStudent(existingstudent);
         }
         return null;
@@ -42,5 +43,11 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public void deletestudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
+    }
+    @GetMapping("/number/{studentNumber}")
+    public ResponseEntity<Student> getStudentByStudentNumber(@PathVariable String studentNumber) {
+        return studentService.getStudentByStudentNumber(studentNumber)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

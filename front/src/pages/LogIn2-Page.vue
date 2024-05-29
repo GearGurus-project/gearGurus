@@ -18,6 +18,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'LogIn2Page',
   data() {
@@ -42,8 +43,29 @@ export default {
         });
         if (response.ok) {
           const data = await response.json();
-          localStorage.setItem('authToken', data.token); // Store the authentication token
-          console.log(data.token);
+          const token = data.token;
+          localStorage.setItem('authToken', token); // Store the authentication token
+          
+          // Decode the token to get the user ID, last name, and first name
+          const base64Url = token.split('.')[1];
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+          const decodedToken = JSON.parse(jsonPayload);
+          
+          const userId = decodedToken.userId; // Extract the userId from the token
+          const lastName = decodedToken.lastName; // Extract the last name from the token
+          const firstName = decodedToken.firstName; // Extract the first name from the token
+          
+          // Store the last name and first name in localStorage
+          localStorage.setItem('lastName', lastName);
+          localStorage.setItem('firstName', firstName);
+
+          console.log("User ID:", userId);
+          console.log("Last Name:", lastName);
+          console.log("First Name:", firstName);
+
           this.$router.push('/Home'); // Redirect to Home after successful login
         } else {
           this.errorMessage = 'Invalid credentials';
@@ -54,6 +76,8 @@ export default {
     }
   }
 };
+
+
 </script>
 
   <style scoped>

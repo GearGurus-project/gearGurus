@@ -58,7 +58,7 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody User user) {
         User existingUser = userServices.findByLastName(user.getLastName());
         if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            String token = jwtUtil.generateToken(existingUser.getLastName());
+            String token = jwtUtil.generateToken(existingUser.getLastName(), existingUser.getId(), existingUser.getFirstName(), existingUser.getLastName());
             AuthResponse response = new AuthResponse();
             response.setToken(token);
             response.setId(existingUser.getId()); // Set the ID of the user in the response

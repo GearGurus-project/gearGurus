@@ -87,7 +87,7 @@ export default {
 						"Catégorie": hardware.category,
 						"Modèle": hardware.model,
 						"Fournisseur": hardware.provider,
-						"Date d'achat": hardware.purchaseDate,
+						"Date d'achat": hardware.datePurchase,
 						"Code barre": hardware.barCode
 					};
 				});
@@ -174,7 +174,7 @@ export default {
 						category: hardware.data.category,
 						model: hardware.data.model,
 						provider: hardware.data.provider,
-						purchaseDate: hardware.data.purchaseDate
+						purchaseDate: hardware.data.datePurchase
 					};
 				} else {
 					console.log("Matériel non trouvé.");
@@ -339,7 +339,7 @@ export default {
 					dateFin: dateFin
 				};
 
-				const response = await borrowedService.updateBorrowedItem( hardwareId, studentId, borrowedItem);
+				const response = await borrowedService.updateBorrowedItem(hardwareId, studentId, borrowedItem);
 
 				if (response.status === 200) {
 					alert('Emprunt modifié.');
@@ -546,7 +546,7 @@ export default {
 			</div>
 			<GridComponent :heroes="gridBorrowedData" :columns="gridColumnsBorrowed" :filter-key="searchBorrowedQuery" />
 			<button @click="showRetakeForm = true; showEditForm = false;">Récupérer</button>
-			<button @click="showEditForm = true; showRetakeForm = false;">Prolonger</button>
+			<button @click="showEditForm = true; showRetakeForm = false;">Modifier les dates</button>
 		</div>
 
 		<div v-if="showRetakeForm" class="retake-borrowed-form">
@@ -562,7 +562,7 @@ export default {
 		</div>
 
 		<div v-if="showEditForm" class="update-borrowed-form">
-			<h2>Prolonger un emprunt</h2>
+			<h2>Modifier les dates d'un emprunt</h2>
 			<form id="search-borrowed-item" @submit.prevent="searchBorrowedItem()" class="search-borrowed-item">
 				<input v-model="forUpdateHardwareBarCode" type="text" id="searchBarCode"
 					placeholder="Entrer le code barre du matériel emprunté">
@@ -770,9 +770,10 @@ export default {
 	input {
 		padding: 5px;
 		margin-bottom: 20px;
+		margin-left: 10px;
 		border-radius: 5px;
 		border: 1px solid #D9D9D9;
-		width: 50%;
+		width: 20%;
 	}
 
 	button {

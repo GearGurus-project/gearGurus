@@ -44,8 +44,10 @@ export default {
         if (response.ok) {
           const data = await response.json();
           const token = data.token;
-          localStorage.setItem('authToken', token); // Store the authentication token
-          
+          const role = data.role;
+          localStorage.setItem('authToken', token); // Store the authentication token         
+          localStorage.setItem('role', role);
+
           // Decode the token to get the user ID, last name, and first name
           const base64Url = token.split('.')[1];
           const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

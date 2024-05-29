@@ -17,7 +17,7 @@
           </li>
           <li class="nav-item">
             <router-link to="/materiels" class="nav-link"
-              >Materiels</router-link
+              >Matériels</router-link
             >
           </li>
           <li class="nav-item">
@@ -25,10 +25,10 @@
               >Statistiques</router-link
             >
           </li>
-          <li class="nav-item">
-            <router-link to="/GestionUtilisateurs" class="nav-link"
-              >Gestion des utilisateurs</router-link
-            >
+          <li class="nav-item" v-if="role === 'admin'">
+            <router-link to="/GestionUtilisateurs" class="nav-link">
+              Gestion des utilisateurs
+            </router-link>
           </li>
         </ul>
       </div>
@@ -50,33 +50,36 @@
     </nav>
   </div>
 </template>
-
+  
 <script>
+
 export default {
   data() {
     return {
       firstName: "",
       lastName: "",
+      role: "",
     };
   },
   methods: {
     disconnect() {
-      // Clear the authentication token and user info from localStorage
       localStorage.removeItem("authToken");
       localStorage.removeItem("firstName");
       localStorage.removeItem("lastName");
+      localStorage.removeItem("role");
       // Redirect to the login page
-      this.$router.push("/");
+      this.$router.push("/login2");
     },
   },
   mounted() {
     // Retrieve user info from localStorage
     this.firstName = localStorage.getItem("firstName");
     this.lastName = localStorage.getItem("lastName");
+    this.role = localStorage.getItem("role");
   },
 };
 </script>
-
+  
 <style scoped>
 .navbar-custom {
   background-color: #201658;

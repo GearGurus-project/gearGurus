@@ -21,6 +21,18 @@ public class BorrowedController {
         return borrowedService.getAllBorroweds();
     }
 
+    @GetMapping("/count")
+    public int getBorrowedCount() {
+        return borrowedService.getAllBorroweds().size();
+    }
+
+    @GetMapping("/most-borrowed")
+    public List<Object[]> getMostBorrowedMaterials() {
+        return borrowedService.getMostBorrowedMaterials();
+    }
+
+
+
     @GetMapping("/{idHardware}/{idStudent}")
     public ResponseEntity<Borrowed> getBorrowedRecordById(@PathVariable Long idHardware, @PathVariable Long idStudent) {
         BorrowedId borrowedId = new BorrowedId();

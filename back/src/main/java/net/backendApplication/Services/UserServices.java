@@ -28,4 +28,9 @@ public class UserServices {
         return userRepository.findByLastName(lastName);
     }
 
+    public long getUsersCount() {
+        return userRepository.count();
+    }
+
+
 }

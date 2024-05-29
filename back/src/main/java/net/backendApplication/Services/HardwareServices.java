@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,5 +48,42 @@ public class HardwareServices {
                 .filter(hardware -> hardware.getBorrowedRecords().isEmpty())
                 .collect(Collectors.toList());
     }
+
+    public long getAvailableHardwareCount() {
+        return hardwareRepository.findAll().stream()
+                .filter(hardware -> hardware.getBorrowedRecords().isEmpty())
+                .count();
+    }
+
+    public String getBestProducer() {
+        Map<String, Long> producerCountMap = hardwareRepository.findAll().stream()
+                .collect(Collectors.groupingBy(Hardware::getProvider, Collectors.counting()));
+
+        return producerCountMap.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
+    }
+
+    public String getBestCategory() {
+        Map<String, Long> categoryCountMap = hardwareRepository.findAll().stream()
+                .collect(Collectors.groupingBy(Hardware::getCategory, Collectors.counting()));
+
+        return categoryCountMap.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
+    }
+
+    // In HardwareServices.java
+    public long countHardwareInPriceRange(double minPrice, double maxPrice) {
+        return hardwareRepository.findAll().stream()
+                .filter(hardware -> {
+                    double price = Double.parseDouble(hardware.getPrice());
+                    return price >= minPrice && price < maxPrice;
+                })
+                .count();
+    }
+
 
 }

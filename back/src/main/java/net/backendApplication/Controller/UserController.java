@@ -66,4 +66,11 @@ public class UserController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getUsersCount() {
+        long count = userServices.getUsersCount();
+        return ResponseEntity.ok(count);
+    }
+
 }

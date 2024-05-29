@@ -11,15 +11,6 @@ export default {
 		return apiClient.get('/');
 	},
 	getStudentByStudentNumber(studentNumber) {
-		return apiClient.get(`/${studentNumber}`);
-	},
-	createStudent(student) {
-		return apiClient.post('/', student);
-	},
-	updateStudent(student) {
-		return apiClient.put(`/${student.studentNumber}`, student);
-	},
-	deleteStudent(studentNumber) {
-		return apiClient.delete(`/${studentNumber}`);
+		return apiClient.get(`/number/${studentNumber}`);
 	},
 };

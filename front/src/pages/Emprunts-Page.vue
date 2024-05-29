@@ -2,7 +2,7 @@
 import GridComponent from "../components/Grid-Component.vue";
 import studentService from "../services/studentService";
 import hardwareService from "../services/hardwareService";
-//import borrowedService from "../services/borrowedService";
+import borrowedService from "../services/borrowedService";
 
 export default {
 	name: 'Emprunts-Page',
@@ -14,39 +14,10 @@ export default {
 			searchNotBorrowedQuery: '',
 			gridColumns: ["Catégorie", "Modèle", "Fournisseur", "Date d'achat", "Code barre"],
 			gridNotBorrowedData: [
-				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-01', "Code barre": '1234567890' },
-				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Air', Fournisseur: "Apple", "Date d'achat": '2020-01-03', "Code barre": '1234567891' },
-				{ Catégorie: 'Clavier', Modèle: 'Magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-02-01', "Code barre": '1234567892' },
-				{ Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-04-10', "Code barre": '1234567893' },
-				{ Catégorie: 'Souris', Modèle: 'Apple Mouse', Fournisseur: "Apple", "Date d'achat": '2020-11-01', "Code barre": '1234567894' },
-				{ Catégorie: 'Souris', Modèle: 'Apple Mouse Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-08', "Code barre": '1234567895' },
-				{ Catégorie: 'Casque', Modèle: 'Airpods Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-21', "Code barre": '1234567896' },
-				{ Catégorie: 'Casque', Modèle: 'Airpods Max', Fournisseur: "Apple", "Date d'achat": '2020-12-25', "Code barre": '1234567897' },
-				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-01', "Code barre": '1234567890' },
-				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Air', Fournisseur: "Apple", "Date d'achat": '2020-01-03', "Code barre": '1234567891' },
-				{ Catégorie: 'Clavier', Modèle: 'Magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-02-01', "Code barre": '1234567892' },
-				{ Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-04-10', "Code barre": '1234567893' },
-				{ Catégorie: 'Souris', Modèle: 'Apple Mouse', Fournisseur: "Apple", "Date d'achat": '2020-11-01', "Code barre": '1234567894' },
-				{ Catégorie: 'Souris', Modèle: 'Apple Mouse Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-08', "Code barre": '1234567895' },
-				{ Catégorie: 'Casque', Modèle: 'Airpods Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-21', "Code barre": '1234567896' },
-				{ Catégorie: 'Casque', Modèle: 'Airpods Max', Fournisseur: "Apple", "Date d'achat": '2020-12-25', "Code barre": '1234567897' },
 			],
 			searchBorrowedQuery: '',
 			gridColumnsBorrowed: ["Numéro étudiant", "Nom", "Prénom", "Groupe", "Catégorie", "Modèle", "Code barre", "Date de début", "Date de fin"],
 			gridBorrowedData: [
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', "Code barre": '1234567890', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Ordinateur', Modèle: 'MacBook Air', "Code barre": '1234567891', "Date de début": '2021-01-03', "Date de fin": '2021-01-13' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Clavier', Modèle: 'Magic Keyboard', "Code barre": '1234567892', "Date de début": '2021-02-01', "Date de fin": '2021-02-11' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', "Code barre": '1234567893', "Date de début": '2021-04-10', "Date de fin": '2021-04-20' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Souris', Modèle: 'Apple Mouse', "Code barre": '1234567894', "Date de début": '2021-11-01', "Date de fin": '2021-11-11' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Souris', Modèle: 'Apple Mouse Pro', "Code barre": '1234567895', "Date de début": '2021-01-08', "Date de fin": '2021-01-18' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Casque', Modèle: 'Airpods Pro', "Code barre": '1234567896', "Date de début": '2021-01-21', "Date de fin": '2021-01-31' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Casque', Modèle: 'Airpods Max', "Code barre": '1234567897', "Date de début": '2021-12-25', "Date de fin": '2022-01-04' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', "Code barre": '1234567890', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Ordinateur', Modèle: 'MacBook Air', "Code barre": '1234567891', "Date de début": '2021-01-03', "Date de fin": '2021-01-13' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Clavier', Modèle: 'Magic Keyboard', "Code barre": '1234567892', "Date de début": '2021-02-01', "Date de fin": '2021-02-11' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', "Code barre": '1234567893', "Date de début": '2021-04-10', "Date de fin": '2021-04-20' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Souris', Modèle: 'Apple Mouse', "Code barre": '1234567894', "Date de début": '2021-11-01', "Date de fin": '2021-11-11' },
 			],
 			studentNumber: '',
 			studentInfo: {
@@ -100,7 +71,45 @@ export default {
 		}
 	},
 	methods: {
-		async getHardwareItemList() {
+		async getAvailableHardwareItemList() {
+			try {
+				// Requête SQL pour obtenir la liste des matériels
+				const hardwareList = await hardwareService.getAvailableHardware();
+				// Mettre à jour la liste des matériels
+				this.gridNotBorrowedData = hardwareList.data.map(hardware => {
+					return {
+						"Catégorie": hardware.category,
+						"Modèle": hardware.model,
+						"Fournisseur": hardware.provider,
+						"Date d'achat": hardware.purchaseDate,
+						"Code barre": hardware.barCode
+					};
+				});
+			} catch (error) {
+				console.error(error);
+			}
+		},
+		async getBorrowedItemList() {
+			try {
+				// Requête SQL pour obtenir la liste des matériels empruntés
+				const borrowedList = await borrowedService.getBorrowedItems();
+				// Mettre à jour la liste des matériels empruntés
+				this.gridBorrowedData = borrowedList.data.map(borrowedItem => {
+					return {
+						"Numéro étudiant": borrowedItem.studentNumber,
+						"Nom": borrowedItem.studentLastName,
+						"Prénom": borrowedItem.studentFirstName,
+						"Groupe": borrowedItem.studentGroup,
+						"Catégorie": borrowedItem.hardwareCategory,
+						"Modèle": borrowedItem.hardwareModel,
+						"Code barre": borrowedItem.hardwareBarCode,
+						"Date de début": borrowedItem.startDate,
+						"Date de fin": borrowedItem.endDate
+					};
+				});
+			} catch (error) {
+				console.error(error);
+			}
 		},
 		async searchStudent() {
 			// Vérifier si le numéro étudiant est renseigné
@@ -111,14 +120,14 @@ export default {
 
 			try {
 				// Requête SQL pour rechercher l'étudiant
-				const student = await studentService.getStudentByNumber(this.studentNumber);
+				const student = await studentService.getStudentByStudentNumber(this.studentNumber);
 
 				// Si l'étudiant est trouvé, mettre à jour les informations
 				if (student) {
 					this.studentInfo = {
-						lastName: student.lastName,
-						firstName: student.firstName,
-						group: student.group
+						lastName: student.data.lastName,
+						firstName: student.data.firstName,
+						group: student.data.group_student
 					};
 				} else {
 					console.log("Étudiant non trouvé.");
@@ -141,10 +150,10 @@ export default {
 				// Si le matériel est trouvé, mettre à jour les informations
 				if (hardware) {
 					this.hardwareInfo = {
-						category: hardware.category,
-						model: hardware.model,
-						provider: hardware.provider,
-						purchaseDate: hardware.purchaseDate
+						category: hardware.data.category,
+						model: hardware.data.model,
+						provider: hardware.data.provider,
+						purchaseDate: hardware.data.purchaseDate
 					};
 				} else {
 					console.log("Matériel non trouvé.");
@@ -153,40 +162,76 @@ export default {
 				console.error(error);
 			}
 		},
-		handleBorrowClick() {
-			// Requête SQL pour emprunter le matériel
-			if (this.studentNumber !== '' && this.hardwareNumber !== '' && this.startDate !== '' && this.endDate !== '') {
-				// Vérifier si le numéro étudiant, le code barre et les dates existent
-
-
-				// Validation de base pour vérifier que les dates sont définies
-				if (!this.startDate || !this.endDate) {
-					alert('Veuillez sélectionner les deux dates.');
-					return;
-				} else {
-					// Validation pour vérifier que la date de fin est après la date de début
-					if (this.startDate > this.endDate) {
-						alert('La date de fin doit être après la date de début.');
-						return;
-					}
+		async handleBorrowClick() {
+			// Vérifier si les champs sont renseignés
+			if (this.studentNumber === '' || this.hardwareNumber === '' || this.startDate === '' || this.endDate === '') {
+				if(this.studentNumber === '' && this.hardwareNumber === '' && this.startDate === '' && this.endDate === '') {
+					alert('Veuillez renseigner tous les champs.');
+				} 
+				else if (this.studentNumber === '' && this.hardwareNumber === '' && this.startDate === '') {
+					alert('Veuillez renseigner le numéro étudiant, le code barre et la date de début.');
+				} 
+				else if (this.studentNumber === '' && this.hardwareNumber === '' && this.endDate === '') {
+					alert('Veuillez renseigner le numéro étudiant, le code barre et la date de fin.');
+				} 
+				else if (this.studentNumber === '' && this.startDate === '' && this.endDate === '') {
+					alert('Veuillez renseigner le numéro étudiant, la date de début et la date de fin.');
+				} 
+				else if (this.hardwareNumber === '' && this.startDate === '' && this.endDate === '') {
+					alert('Veuillez renseigner le code barre, la date de début et la date de fin.');
+				} 
+				else if (this.studentNumber === '' && this.hardwareNumber === '') {
+					alert('Veuillez renseigner le numéro étudiant et le code barre.');
+				} 
+				else if (this.studentNumber === '' && this.startDate === '') {
+					alert('Veuillez renseigner le numéro étudiant et la date de début.');
+				} 
+				else if (this.studentNumber === '' && this.endDate === '') {
+					alert('Veuillez renseigner le numéro étudiant et la date de fin.');
+				} 
+				else if (this.hardwareNumber === '' && this.startDate === '') {
+					alert('Veuillez renseigner le code barre et la date de début.');
+				} 
+				else if (this.hardwareNumber === '' && this.endDate === '') {
+					alert('Veuillez renseigner le code barre et la date de fin.');
+				} 
+				else if (this.startDate === '' && this.endDate === '') {
+					alert('Veuillez renseigner la date de début et la date de fin.');
+				} 
+				else if (this.studentNumber === '') {
+					alert('Veuillez renseigner le numéro étudiant.');
+				} 
+				else if (this.hardwareNumber === '') {
+					alert('Veuillez renseigner le code barre.');
+				} 
+				else if (this.startDate === '') {
+					alert('Veuillez renseigner la date de début.');
+				} 
+				else if (this.endDate === '') {
+					alert('Veuillez renseigner la date de fin.');
 				}
+				return;
+			}
 
-				console.log('date de début : ' + this.startDate);
-				console.log('date de fin : ' + this.endDate);
+			// Requête SQL pour emprunter le matériel
+			try {
+				const borrowedItem = {
+					studentNumber: this.studentNumber,
+					hardwareBarCode: this.hardwareNumber,
+					startDate: this.startDate,
+					endDate: this.endDate
+				};
 
-				// Si les trois existent, emprunter le matériel
-				// if(student && hardware && startDate && endDate) {
-				// borrowedService.borrowHardware(student, hardware, startDate, endDate);
-				// }
+				const response = await borrowedService.borrowHardware(borrowedItem);
 
-				// et réinitialiser les champs
-				console.log("Emprunt effectué.");
-
-				this.resetForm();
-
-			} else {
-				// Affichage d'une erreur si les champs ne sont pas remplis sur l'écran
-				console.log("Erreur lors de l'emprunt.");
+				if (response.status === 200) {
+					alert('Matériel emprunté.');
+					this.resetForm();
+				} else {
+					alert('Erreur lors de l\'emprunt.');
+				}
+			} catch (error) {
+				console.error(error);
 			}
 		},
 		handlePeriodSubmit() {
@@ -248,9 +293,8 @@ export default {
 			};
 		}
 	},
-	mount() {
-		// Requête SQL pour obtenir la liste des matériels empruntés
-		// borrowedService.getBorrowedItemList();
+	mounted() {
+		this.getAvailableHardwareItemList();
 	},
 };
 </script>
@@ -275,7 +319,7 @@ export default {
 				<h2>Réservation</h2>
 				<div class="to-borrow-student-forms">
 					<h3>Etudiant</h3>
-					<form id="search-student" @submit.prevent="searchStudent">
+					<form id="search-student" @submit.prevent="searchStudent()">
 						<input v-model="studentNumber" type="text" id="studentNumber"
 							placeholder="Entrer le numéro étudiant">
 						<button type="submit">Rechercher</button>
@@ -296,7 +340,7 @@ export default {
 				</div>
 				<div class="to-borrow-hardware-forms">
 					<h3>Matériel</h3>
-					<form id="search-student" @submit.prevent="searchHardware">
+					<form id="search-student" @submit.prevent="searchHardware()">
 						<input v-model="hardwareNumber" type="text" id="HardwareNumber" placeholder="Entrer le code barre">
 						<button type="submit">Rechercher</button>
 					</form>

@@ -24,5 +24,8 @@ export default {
   },
   deleteHardwareByBarCode(hardwareNumber) {
 	return apiClient.delete(`/barcode/${hardwareNumber}`);
-  }
+  },
+  getAvailableHardware() {
+	return apiClient.get('/available');
+  },
 };

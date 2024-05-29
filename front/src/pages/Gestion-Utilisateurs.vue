@@ -143,12 +143,14 @@ export default {
     },
     async addUser() {
       const passwordValidation = this.validatePassword(this.newUser.password);
-      if (
+      // Vérifier si tous les champs du formulaire sont remplis
+      const allFieldsFilled =
         this.newUser.firstName &&
         this.newUser.lastName &&
-        passwordValidation.valid &&
-        this.newUser.role
-      ) {
+        this.newUser.password &&
+        this.newUser.role;
+
+      if (allFieldsFilled && passwordValidation.valid) {
         try {
           const response = await userService.createUser(this.newUser);
           this.users.push(response.data);
@@ -165,7 +167,9 @@ export default {
         }
       } else {
         console.log("Veuillez remplir tous les champs correctement.");
-        if (!passwordValidation.valid) {
+        if (!allFieldsFilled) {
+          this.errorMessage = "Veuillez remplir tous les champs.";
+        } else if (!passwordValidation.valid) {
           this.errorMessage = passwordValidation.message; // Mettre à jour le message d'erreur
         }
       }
@@ -319,19 +323,21 @@ export default {
   justify-content: space-between;
 }
 
-.user-list, .user-forms {
+.user-list,
+.user-forms {
   width: 45%;
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 form {
   margin-bottom: 20px;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
@@ -340,7 +346,7 @@ input, select {
 }
 
 input[type="submit"] {
-  background-color: #007BFF;
+  background-color: #007bff;
   color: white;
   cursor: pointer;
 }

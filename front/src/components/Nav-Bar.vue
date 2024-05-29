@@ -21,6 +21,9 @@
 					<li class="nav-item">
 						<router-link to="/statistiques" class="nav-link">Statistiques</router-link>
 					</li>
+					<li class="nav-item" v-if="user.role === 'admin'">
+                        <router-link to="/GestionUtilisateurs" class="nav-link">Gestion des utilisateurs</router-link>
+                    </li>
 				</ul>
 			</div>
 
@@ -36,6 +39,14 @@
   
 <script>
 export default {
+
+    data() {
+        return {
+            user: {
+                role: 'admin'
+            }
+        };
+    },
 	methods: {
 		disconnect() {
 			// Clear the authentication token from localStorage

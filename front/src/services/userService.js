@@ -11,9 +11,9 @@ export default {
     return apiClient.get('');
   },
   createUser(user) {
-    return apiClient.post('/', user);
+    return apiClient.post('', user);
   },
   deleteUser(userId) {
-    return apiClient.delete(`/${userId}`);
+    return apiClient.delete(`${userId}`);
   }
 };

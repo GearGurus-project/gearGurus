@@ -32,12 +32,12 @@ public class UserController {
     }
 
     @PostMapping
-    public User createStudent(@RequestBody User user) {
+    public User createUser(@RequestBody User user) {
         return userServices.saveUser(user);
     }
 
     @PutMapping("/{id}")
-    public User updateStudent(@PathVariable Long id, @RequestBody User user) {
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
         User existingUser = userServices.getUserById(id);
         if (existingUser != null) {
             existingUser.setFirstName(user.getFirstName());
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStudent(@PathVariable Long id) {
+    public void deleteUser(@PathVariable Long id) {
         userServices.deleteUser(id);
     }
 

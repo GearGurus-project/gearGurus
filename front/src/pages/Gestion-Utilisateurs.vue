@@ -32,9 +32,9 @@
         <h2>Supprimer un utilisateur</h2>
         <form id="delete-user" @submit.prevent="deleteUser">
           <input
-            v-model="deleteUserFirstName"
+            v-model="deleteUserId"
             type="text"
-            placeholder="Prénom utilisateur"
+            placeholder="ID utilisateur"
           />
           <button type="submit">Supprimer</button>
         </form>
@@ -42,8 +42,8 @@
     </div>
   </div>
 </template>
-
-<script>
+  
+  <script>
 import GridComponent from "../components/Grid-Component.vue";
 import userService from "@/services/userService";
 
@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       searchQuery: "",
-      gridColumns: ["firstName", "lastName", "role"], // Utilisez les clés des objets utilisateurs
+      gridColumns: ["id", "firstName", "lastName", "role"],
       users: [],
       newUser: {
         firstName: "",
@@ -63,7 +63,7 @@ export default {
         password: "",
         role: "",
       },
-      deleteUserFirstName: "",
+      deleteUserId: "", // Change here to use ID for deletion
     };
   },
   computed: {
@@ -74,7 +74,8 @@ export default {
       }
       const filterKey = this.searchQuery.toLowerCase();
       return transformedUsers.filter((user) => {
-        return user.firstName.toLowerCase().includes(filterKey);
+        const firstName = user.firstName ? user.firstName.toLowerCase() : "";
+        return firstName.includes(filterKey);
       });
     },
   },
@@ -93,6 +94,7 @@ export default {
     },
     transformUsers(users) {
       return users.map((user) => ({
+        id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         role: user.role,
@@ -125,12 +127,12 @@ export default {
     async deleteUser() {
       try {
         const userToDelete = this.users.find(
-          (user) => user.firstName === this.deleteUserFirstName
+          (user) => user.id === parseInt(this.deleteUserId)
         );
         if (userToDelete) {
           await userService.deleteUser(userToDelete.id);
           this.users = this.users.filter((user) => user.id !== userToDelete.id);
-          this.deleteUserFirstName = "";
+          this.deleteUserId = ""; // Clear the input field after deletion
           console.log("Utilisateur supprimé avec succès.");
         } else {
           console.log("Utilisateur non trouvé.");
@@ -148,7 +150,7 @@ export default {
   },
 };
 </script>
-
+  
 
 <style scoped>
 .body {

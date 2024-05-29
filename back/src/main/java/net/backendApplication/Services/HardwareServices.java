@@ -18,11 +18,21 @@ public class HardwareServices {
     public Hardware getHardwareById(Long id) {
         return hardwareRepository.findById(id).orElse(null);
     }
+
+    public Hardware getHardwareByBarCode(String barCode) {
+        return hardwareRepository.findByBarCode(barCode);
+    }
     public Hardware saveHardware(Hardware Hardware) {
         return hardwareRepository.save(Hardware);
     }
     public void deleteHardware(Long id) {
         hardwareRepository.deleteById(id);
+    }
+    public void deleteHardwareByBarCode(String barCode) {
+        Hardware hardware = hardwareRepository.findByBarCode(barCode);
+        if (hardware != null) {
+            hardwareRepository.deleteById(hardware.getId());
+        }
     }
 
 }

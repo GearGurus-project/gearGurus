@@ -3,6 +3,8 @@ package net.backendApplication.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,4 +33,11 @@ public class Student {
     @Getter
     @Column(name="student_number")
     private String student_number;
+    @Setter
+    @OneToMany(mappedBy = "id.idStudent")
+    private Set<Borrowed> borrowedRecords;
+
+    public Set<Borrowed> getBorrowedRecords() {
+        return borrowedRecords;
+    }
 }

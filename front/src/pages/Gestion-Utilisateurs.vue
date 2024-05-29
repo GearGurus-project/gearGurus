@@ -299,6 +299,7 @@ export default {
 <style scoped>
 .body {
   margin: 0 40px 20px 40px;
+  padding: 20px;
 }
 
 .error-message {
@@ -306,31 +307,45 @@ export default {
   margin-top: 10px;
 }
 
-h1 {
+.title {
   font-weight: bolder;
   font-style: italic;
+  text-align: center;
+  padding-bottom: 1em;
 }
 
 .user-management {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.user-list,
-.user-forms {
-  padding: 30px;
-  border: 1px solid black;
-  border-radius: 10px;
-  background-color: #ffffff;
+.user-list, .user-forms {
+  width: 45%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 }
 
 form {
   margin-bottom: 20px;
-  width: 100%;
 }
 
-input {
-  margin-right: 10px;
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+input[type="submit"] {
+  background-color: #007BFF;
+  color: white;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
 }
 </style>

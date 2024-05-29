@@ -15,5 +15,8 @@ export default {
   },
   deleteUser(userId) {
     return apiClient.delete(`${userId}`);
-  }
+  },
+  updateUser(userId, user) {
+    return apiClient.put(`${userId}`, user);
+  },
 };

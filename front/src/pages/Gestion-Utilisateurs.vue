@@ -35,6 +35,38 @@
           <!-- Afficher un message d'erreur si le mot de passe n'est pas valide -->
           <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
         </form>
+
+        <h2>Modifier un utilisateur</h2>
+        <form id="select-user" @submit.prevent="selectUserToEdit">
+          <input
+            v-model="editUserId"
+            type="text"
+            placeholder="ID utilisateur"
+          />
+          <button type="submit">Sélectionner</button>
+        </form>
+        <form id="edit-user" v-if="userToEdit" @submit.prevent="updateUser">
+          <input
+            v-model="userToEdit.firstName"
+            type="text"
+            placeholder="Prénom"
+          />
+          <input v-model="userToEdit.lastName" type="text" placeholder="Nom" />
+          <input
+            v-model="userToEdit.password"
+            type="password"
+            placeholder="Mot de passe"
+          />
+          <select v-model="userToEdit.role">
+            <option value="" disabled>Choisissez un rôle</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </select>
+          <button type="submit">Modifier</button>
+          <!-- Afficher un message d'erreur si le mot de passe n'est pas valide -->
+          <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+        </form>
+
         <h2>Supprimer un utilisateur</h2>
         <form id="delete-user" @submit.prevent="deleteUser">
           <input
@@ -69,8 +101,10 @@ export default {
         password: "",
         role: "",
       },
-      deleteUserId: "", // Changed to use ID for deletion
-      errorMessage: "", // Ajouter un champ pour stocker le message d'erreur
+      editUserId: "", // ID de l'utilisateur à modifier
+      userToEdit: null, // Données de l'utilisateur à modifier
+      deleteUserId: "", // ID de l'utilisateur à supprimer
+      errorMessage: "", // Message d'erreur pour la création d'utilisateur
     };
   },
   computed: {
@@ -162,6 +196,79 @@ export default {
       }
       return { valid: true, message: "" };
     },
+    async selectUserToEdit() {
+      try {
+        const user = this.users.find(
+          (user) => user.id === parseInt(this.editUserId)
+        );
+        if (user) {
+          this.userToEdit = { ...user, password: "" }; // Préremplir le formulaire et vider le champ mot de passe
+          console.log(
+            "Utilisateur sélectionné pour modification :",
+            this.userToEdit
+          );
+        } else {
+          console.log("Utilisateur non trouvé.");
+          this.userToEdit = null;
+        }
+      } catch (error) {
+        console.error("Erreur lors de la sélection de l'utilisateur :", error);
+      }
+    },
+    async updateUser() {
+      const passwordValidation = this.userToEdit.password
+        ? this.validatePassword(this.userToEdit.password)
+        : { valid: true, message: "" };
+
+      if (
+        this.userToEdit.firstName &&
+        this.userToEdit.lastName &&
+        passwordValidation.valid &&
+        this.userToEdit.role
+      ) {
+        try {
+          const userToUpdate = this.users.find(
+            (user) => user.id === this.userToEdit.id
+          );
+
+          if (this.userToEdit.firstName) {
+            userToUpdate.firstName = this.userToEdit.firstName;
+          }
+          if (this.userToEdit.lastName) {
+            userToUpdate.lastName = this.userToEdit.lastName;
+          }
+          if (this.userToEdit.password) {
+            userToUpdate.password = this.userToEdit.password;
+          }
+          if (this.userToEdit.role) {
+            userToUpdate.role = this.userToEdit.role;
+          }
+
+          const response = await userService.updateUser(
+            this.userToEdit.id,
+            userToUpdate
+          );
+
+          const index = this.users.findIndex(
+            (user) => user.id === this.userToEdit.id
+          );
+          this.users[index] = response.data;
+          this.userToEdit = null;
+          this.editUserId = "";
+          console.log("Utilisateur modifié avec succès.");
+        } catch (error) {
+          console.error(
+            "Erreur lors de la modification de l'utilisateur :",
+            error
+          );
+        }
+      } else {
+        console.log("Veuillez remplir tous les champs correctement.");
+        if (!passwordValidation.valid) {
+          this.errorMessage = passwordValidation.message; // Mettre à jour le message d'erreur
+        }
+      }
+    },
     async deleteUser() {
       try {
         const userToDelete = this.users.find(
@@ -188,6 +295,14 @@ export default {
   },
 };
 </script>
+  
+  <style scoped>
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+</style>
+  
  
 
 <style scoped>

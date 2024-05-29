@@ -2,7 +2,7 @@
 import GridComponent from "../components/Grid-Component.vue";
 import studentService from "../services/studentService";
 import hardwareService from "../services/hardwareService";
-//import borrowedService from "../services/borrowedService";
+import borrowedService from "../services/borrowedService";
 
 export default {
 	name: 'Emprunts-Page',
@@ -14,39 +14,10 @@ export default {
 			searchNotBorrowedQuery: '',
 			gridColumns: ["Catégorie", "Modèle", "Fournisseur", "Date d'achat", "Code barre"],
 			gridNotBorrowedData: [
-				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-01', "Code barre": '1234567890' },
-				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Air', Fournisseur: "Apple", "Date d'achat": '2020-01-03', "Code barre": '1234567891' },
-				{ Catégorie: 'Clavier', Modèle: 'Magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-02-01', "Code barre": '1234567892' },
-				{ Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-04-10', "Code barre": '1234567893' },
-				{ Catégorie: 'Souris', Modèle: 'Apple Mouse', Fournisseur: "Apple", "Date d'achat": '2020-11-01', "Code barre": '1234567894' },
-				{ Catégorie: 'Souris', Modèle: 'Apple Mouse Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-08', "Code barre": '1234567895' },
-				{ Catégorie: 'Casque', Modèle: 'Airpods Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-21', "Code barre": '1234567896' },
-				{ Catégorie: 'Casque', Modèle: 'Airpods Max', Fournisseur: "Apple", "Date d'achat": '2020-12-25', "Code barre": '1234567897' },
-				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-01', "Code barre": '1234567890' },
-				{ Catégorie: 'Ordinateur', Modèle: 'MacBook Air', Fournisseur: "Apple", "Date d'achat": '2020-01-03', "Code barre": '1234567891' },
-				{ Catégorie: 'Clavier', Modèle: 'Magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-02-01', "Code barre": '1234567892' },
-				{ Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', Fournisseur: "Apple", "Date d'achat": '2020-04-10', "Code barre": '1234567893' },
-				{ Catégorie: 'Souris', Modèle: 'Apple Mouse', Fournisseur: "Apple", "Date d'achat": '2020-11-01', "Code barre": '1234567894' },
-				{ Catégorie: 'Souris', Modèle: 'Apple Mouse Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-08', "Code barre": '1234567895' },
-				{ Catégorie: 'Casque', Modèle: 'Airpods Pro', Fournisseur: "Apple", "Date d'achat": '2020-01-21', "Code barre": '1234567896' },
-				{ Catégorie: 'Casque', Modèle: 'Airpods Max', Fournisseur: "Apple", "Date d'achat": '2020-12-25', "Code barre": '1234567897' },
 			],
 			searchBorrowedQuery: '',
 			gridColumnsBorrowed: ["Numéro étudiant", "Nom", "Prénom", "Groupe", "Catégorie", "Modèle", "Code barre", "Date de début", "Date de fin"],
 			gridBorrowedData: [
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', "Code barre": '1234567890', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Ordinateur', Modèle: 'MacBook Air', "Code barre": '1234567891', "Date de début": '2021-01-03', "Date de fin": '2021-01-13' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Clavier', Modèle: 'Magic Keyboard', "Code barre": '1234567892', "Date de début": '2021-02-01', "Date de fin": '2021-02-11' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', "Code barre": '1234567893', "Date de début": '2021-04-10', "Date de fin": '2021-04-20' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Souris', Modèle: 'Apple Mouse', "Code barre": '1234567894', "Date de début": '2021-11-01', "Date de fin": '2021-11-11' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Souris', Modèle: 'Apple Mouse Pro', "Code barre": '1234567895', "Date de début": '2021-01-08', "Date de fin": '2021-01-18' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Casque', Modèle: 'Airpods Pro', "Code barre": '1234567896', "Date de début": '2021-01-21', "Date de fin": '2021-01-31' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Casque', Modèle: 'Airpods Max', "Code barre": '1234567897', "Date de début": '2021-12-25', "Date de fin": '2022-01-04' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Ordinateur', Modèle: 'MacBook Pro', "Code barre": '1234567890', "Date de début": '2021-01-01', "Date de fin": '2021-01-10' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Ordinateur', Modèle: 'MacBook Air', "Code barre": '1234567891', "Date de début": '2021-01-03', "Date de fin": '2021-01-13' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Clavier', Modèle: 'Magic Keyboard', "Code barre": '1234567892', "Date de début": '2021-02-01', "Date de fin": '2021-02-11' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Clavier', Modèle: 'Not magic Keyboard', "Code barre": '1234567893', "Date de début": '2021-04-10', "Date de fin": '2021-04-20' },
-				{ "Numéro étudiant": '123456', Nom: 'ZHAN', Prénom: 'Ulrich', Groupe: 'LSI1', Catégorie: 'Souris', Modèle: 'Apple Mouse', "Code barre": '1234567894', "Date de début": '2021-11-01', "Date de fin": '2021-11-11' },
 			],
 			studentNumber: '',
 			studentInfo: {
@@ -56,6 +27,7 @@ export default {
 			},
 			hardwareNumber: '',
 			hardwareInfo: {
+				barCode: '',
 				category: '',
 				model: '',
 				provider: '',
@@ -68,15 +40,19 @@ export default {
 			showRetakeForm: false,
 			showEditForm: false,
 			retake: {
-				hardwareId: '',
-				studentId: ''
+				hardwareBarCode: '',
+				studentNumber: ''
 			},
 			toUpdateBorrowedItem: {
-				hardwareId: '',
-				studentId: '',
-				startDate: '',
-				endDate: ''
+				id: {
+					idStudent: '',
+					idHardware: ''
+				},
+				dateDebut: '',
+				dateFin: ''
 			},
+			forUpdateHardwareBarCode: '',
+			forUpdateStudentNumber: ''
 		};
 	},
 	computed: {
@@ -100,7 +76,60 @@ export default {
 		}
 	},
 	methods: {
-		async getHardwareItemList() {
+		async getAvailableHardwareItemList() {
+			try {
+				// Requête SQL pour obtenir la liste des matériels
+				const hardwareList = await hardwareService.getAvailableHardware();
+				// Mettre à jour la liste des matériels
+				this.gridNotBorrowedData = [];
+				this.gridNotBorrowedData = hardwareList.data.map(hardware => {
+					return {
+						"Catégorie": hardware.category,
+						"Modèle": hardware.model,
+						"Fournisseur": hardware.provider,
+						"Date d'achat": hardware.datePurchase,
+						"Code barre": hardware.barCode
+					};
+				});
+			} catch (error) {
+				console.error(error);
+			}
+		},
+		async getBorrowedItemList() {
+			try {
+				// Requête SQL pour obtenir la liste des matériels empruntés
+				const borrowedList = await borrowedService.getBorrowedItems();
+				const length = borrowedList.data.length;
+				this.gridBorrowedData = [];
+
+				for (let i = 0; i < length; i++) {
+					const idHardware = borrowedList.data[i].id.idHardware;
+					const idStudent = borrowedList.data[i].id.idStudent;
+
+					const hardwareDetails = await hardwareService.getHardwareById(idHardware);
+					const studentDetails = await studentService.getStudentById(idStudent);
+
+					let startDate = borrowedList.data[i].dateDebut;
+					let endDate = borrowedList.data[i].dateFin;
+					startDate = startDate.substring(0, 10);
+					endDate = endDate.substring(0, 10);
+
+
+					this.gridBorrowedData.push({
+						"Numéro étudiant": studentDetails.data.studentNumber,
+						"Nom": studentDetails.data.lastName,
+						"Prénom": studentDetails.data.firstName,
+						"Groupe": studentDetails.data.group_student,
+						"Catégorie": hardwareDetails.data.category,
+						"Modèle": hardwareDetails.data.model,
+						"Code barre": hardwareDetails.data.barCode,
+						"Date de début": startDate,
+						"Date de fin": endDate
+					});
+				}
+			} catch (error) {
+				console.error(error);
+			}
 		},
 		async searchStudent() {
 			// Vérifier si le numéro étudiant est renseigné
@@ -111,14 +140,14 @@ export default {
 
 			try {
 				// Requête SQL pour rechercher l'étudiant
-				const student = await studentService.getStudentByNumber(this.studentNumber);
+				const student = await studentService.getStudentByStudentNumber(this.studentNumber);
 
 				// Si l'étudiant est trouvé, mettre à jour les informations
 				if (student) {
 					this.studentInfo = {
-						lastName: student.lastName,
-						firstName: student.firstName,
-						group: student.group
+						lastName: student.data.lastName,
+						firstName: student.data.firstName,
+						group: student.data.group_student
 					};
 				} else {
 					console.log("Étudiant non trouvé.");
@@ -141,10 +170,11 @@ export default {
 				// Si le matériel est trouvé, mettre à jour les informations
 				if (hardware) {
 					this.hardwareInfo = {
-						category: hardware.category,
-						model: hardware.model,
-						provider: hardware.provider,
-						purchaseDate: hardware.purchaseDate
+						barCode: hardware.data.barCode,
+						category: hardware.data.category,
+						model: hardware.data.model,
+						provider: hardware.data.provider,
+						purchaseDate: hardware.data.datePurchase
 					};
 				} else {
 					console.log("Matériel non trouvé.");
@@ -153,68 +183,234 @@ export default {
 				console.error(error);
 			}
 		},
-		handleBorrowClick() {
-			// Requête SQL pour emprunter le matériel
-			if (this.studentNumber !== '' && this.hardwareNumber !== '' && this.startDate !== '' && this.endDate !== '') {
-				// Vérifier si le numéro étudiant, le code barre et les dates existent
-
-
-				// Validation de base pour vérifier que les dates sont définies
-				if (!this.startDate || !this.endDate) {
-					alert('Veuillez sélectionner les deux dates.');
-					return;
-				} else {
-					// Validation pour vérifier que la date de fin est après la date de début
-					if (this.startDate > this.endDate) {
-						alert('La date de fin doit être après la date de début.');
-						return;
-					}
+		async handleBorrowClick() {
+			// Vérifier si les champs sont renseignés
+			if (this.studentNumber === '' || this.hardwareNumber === '' || this.startDate === '' || this.endDate === '') {
+				if (this.studentNumber === '' && this.hardwareNumber === '' && this.startDate === '' && this.endDate === '') {
+					alert('Veuillez renseigner tous les champs.');
 				}
+				else if (this.studentNumber === '' && this.hardwareNumber === '' && this.startDate === '') {
+					alert('Veuillez renseigner le numéro étudiant, le code barre et la date de début.');
+				}
+				else if (this.studentNumber === '' && this.hardwareNumber === '' && this.endDate === '') {
+					alert('Veuillez renseigner le numéro étudiant, le code barre et la date de fin.');
+				}
+				else if (this.studentNumber === '' && this.startDate === '' && this.endDate === '') {
+					alert('Veuillez renseigner le numéro étudiant, la date de début et la date de fin.');
+				}
+				else if (this.hardwareNumber === '' && this.startDate === '' && this.endDate === '') {
+					alert('Veuillez renseigner le code barre, la date de début et la date de fin.');
+				}
+				else if (this.studentNumber === '' && this.hardwareNumber === '') {
+					alert('Veuillez renseigner le numéro étudiant et le code barre.');
+				}
+				else if (this.studentNumber === '' && this.startDate === '') {
+					alert('Veuillez renseigner le numéro étudiant et la date de début.');
+				}
+				else if (this.studentNumber === '' && this.endDate === '') {
+					alert('Veuillez renseigner le numéro étudiant et la date de fin.');
+				}
+				else if (this.hardwareNumber === '' && this.startDate === '') {
+					alert('Veuillez renseigner le code barre et la date de début.');
+				}
+				else if (this.hardwareNumber === '' && this.endDate === '') {
+					alert('Veuillez renseigner le code barre et la date de fin.');
+				}
+				else if (this.startDate === '' && this.endDate === '') {
+					alert('Veuillez renseigner la date de début et la date de fin.');
+				}
+				else if (this.studentNumber === '') {
+					alert('Veuillez renseigner le numéro étudiant.');
+				}
+				else if (this.hardwareNumber === '') {
+					alert('Veuillez renseigner le code barre.');
+				}
+				else if (this.startDate === '') {
+					alert('Veuillez renseigner la date de début.');
+				}
+				else if (this.endDate === '') {
+					alert('Veuillez renseigner la date de fin.');
+				}
+				return;
+			}
 
-				console.log('date de début : ' + this.startDate);
-				console.log('date de fin : ' + this.endDate);
+			// Requête SQL pour emprunter le matériel
+			try {
+				const Student = await studentService.getStudentByStudentNumber(this.studentNumber);
+				const Hardware = await hardwareService.getHardwareByBarCode(this.hardwareNumber);
+				const borrowedItem = {
+					id: {
+						idStudent: Student.data.id,
+						idHardware: Hardware.data.id,
+					},
+					dateDebut: this.startDate,
+					dateFin: this.endDate
+				};
 
-				// Si les trois existent, emprunter le matériel
-				// if(student && hardware && startDate && endDate) {
-				// borrowedService.borrowHardware(student, hardware, startDate, endDate);
-				// }
+				const response = await borrowedService.borrowHardware(borrowedItem);
 
-				// et réinitialiser les champs
-				console.log("Emprunt effectué.");
-
-				this.resetForm();
-
-			} else {
-				// Affichage d'une erreur si les champs ne sont pas remplis sur l'écran
-				console.log("Erreur lors de l'emprunt.");
+				if (response.status === 200) {
+					alert('Matériel emprunté.');
+					this.getAvailableHardwareItemList();
+					this.getBorrowedItemList();
+					this.resetForm();
+				} else {
+					alert('Erreur lors de l\'emprunt.');
+				}
+			} catch (error) {
+				console.error(error);
 			}
 		},
 		handlePeriodSubmit() {
 
 		},
-		searchBorrowedItem() {
-			// Requête SQL pour rechercher l'emprunt
-			console.log('Recherche de l\'emprunt.');
+		async searchBorrowedItem() {
+			try {
+				const hardware = await hardwareService.getHardwareByBarCode(this.forUpdateHardwareBarCode);
+				const student = await studentService.getStudentByStudentNumber(this.forUpdateStudentNumber);
 
-			// Réinitialiser le formulaire
-			this.showEditForm = false;
+				const idHardware = hardware.data.id;
+				const idStudent = student.data.id;
 
-			// Réinitialiser les champs
-			this.searchBarCode = '';
-			this.toUpdateBorrowedItem = {
-				hardwareId: '',
-				studentId: '',
-				startDate: '',
-				endDate: ''
-			};
+				console.log(idHardware, idStudent);
+
+				const borrowedItem = await borrowedService.getBorrowedItemById(idHardware, idStudent);
+
+				let dateDebut = borrowedItem.data.dateDebut;
+				let dateFin = borrowedItem.data.dateFin;
+
+				dateDebut = dateDebut.substring(0, 10);
+				dateFin = dateFin.substring(0, 10);
+
+				if (borrowedItem) {
+					this.toUpdateBorrowedItem = {
+						id: {
+							idStudent: student.data.id,
+							idHardware: hardware.data.id
+						},
+						dateDebut: dateDebut,
+						dateFin: dateFin
+					};
+				} else {
+					alert('Emprunt non trouvé.');
+				}
+			} catch (error) {
+				if (error.response) {
+					// The request was made and the server responded with a status code that falls out of the range of 2xx
+					const status = error.response.status;
+
+					if (status === 404) {
+						alert('Emprunt non trouvé.');
+					} else if (status === 500) {
+						alert('Erreur lors de la modification.');
+					} else {
+						alert('Erreur lors de la modification.');
+					}
+				} else if (error.request) {
+					// The request was made but no response was received
+					console.error('Erreur de réseau ou aucune réponse reçue');
+					alert('Erreur réseau. Veuillez réessayer.');
+				} else {
+					// Something happened in setting up the request that triggered an Error
+					console.error('Erreur', error.message);
+					alert('Erreur lors de la modification.');
+				}
+			}
 		},
-		updateBorrowedItem() {
-			// Requête SQL pour mettre à jour l'emprunt
-			console.log('Emprunt mis à jour.');
+		async updateBorrowedItem() {
+			try {
+				const Hardware = await hardwareService.getHardwareByBarCode(this.forUpdateHardwareBarCode);
+				const Student = await studentService.getStudentByStudentNumber(this.forUpdateStudentNumber);
+
+				const studentId = Student.data.id;
+				const hardwareId = Hardware.data.id;
+
+				const dateDebut = this.toUpdateBorrowedItem.dateDebut;
+				const dateFin = this.toUpdateBorrowedItem.dateFin;
+
+				console.log(dateDebut, dateFin);
+
+				const borrowedItem = {
+					id: {
+						idStudent: studentId,
+						idHardware: hardwareId
+					},
+					dateDebut: dateDebut,
+					dateFin: dateFin
+				};
+
+				const response = await borrowedService.updateBorrowedItem(hardwareId, studentId, borrowedItem);
+
+				if (response.status === 200) {
+					alert('Emprunt modifié.');
+					this.getAvailableHardwareItemList();
+					this.getBorrowedItemList();
+					this.resetForm();
+				} else {
+					alert('Erreur lors de la modification.');
+				}
+			} catch (error) {
+				if (error.response) {
+					// The request was made and the server responded with a status code that falls out of the range of 2xx
+					const status = error.response.status;
+
+					if (status === 404) {
+						alert('Emprunt non trouvé.');
+					} else if (status === 500) {
+						alert('Erreur lors de la modification.');
+					} else {
+						alert('Erreur lors de la modification.');
+					}
+				} else if (error.request) {
+					// The request was made but no response was received
+					console.error('Erreur de réseau ou aucune réponse reçue');
+					alert('Erreur réseau. Veuillez réessayer.');
+				} else {
+					// Something happened in setting up the request that triggered an Error
+					console.error('Erreur', error.message);
+					alert('Erreur lors de la modification.');
+				}
+			}
 		},
-		retakeBorrowedItem() {
-			// Requête SQL pour reprendre le matériel
-			console.log('Matériel rendu.');
+		async retakeBorrowedItem() {
+			try {
+				const hardware = await hardwareService.getHardwareByBarCode(this.retake.hardwareBarCode);
+				const student = await studentService.getStudentByStudentNumber(this.retake.studentNumber);
+
+				const response = await borrowedService.retakeHardware(hardware.data.id, student.data.id);
+
+				if (response.status === 204) {
+					alert('Matériel récupéré.');
+					this.getAvailableHardwareItemList();
+					this.getBorrowedItemList();
+					this.resetForm();
+				} else {
+					alert('Erreur lors de la récupération.');
+				}
+			} catch (error) {
+				if (error.response) {
+					// The request was made and the server responded with a status code that falls out of the range of 2xx
+					const status = error.response.status;
+
+					if (status === 404) {
+						alert('Matériel emprunté non trouvé.');
+					} else if (status === 400) {
+						alert('Étudiant non trouvé.');
+					} else if (status === 500) {
+						alert('Erreur lors de la récupération.');
+					} else {
+						alert('Erreur lors de la récupération.');
+					}
+				} else if (error.request) {
+					// The request was made but no response was received
+					console.error('Erreur de réseau ou aucune réponse reçue');
+					alert('Erreur réseau. Veuillez réessayer.');
+				} else {
+					// Something happened in setting up the request that triggered an Error
+					console.error('Erreur', error.message);
+					alert('Erreur lors de la récupération.');
+				}
+			}
 		},
 		resetForm() {
 			this.studentNumber = '';
@@ -225,6 +421,7 @@ export default {
 				group: ''
 			};
 			this.hardwareInfo = {
+				barCode: '',
 				category: '',
 				model: '',
 				provider: '',
@@ -237,20 +434,24 @@ export default {
 			this.showRetakeForm = false;
 			this.showEditForm = false;
 			this.retake = {
-				hardwareId: '',
-				studentId: ''
+				hardwareBarCode: '',
+				studentNumber: ''
 			};
 			this.toUpdateBorrowedItem = {
-				hardwareId: '',
-				studentId: '',
-				startDate: '',
-				endDate: ''
+				id: {
+					idStudent: '',
+					idHardware: ''
+				},
+				dateDebut: '',
+				dateFin: ''
 			};
+			this.forUpdateHardwareBarCode = '';
+			this.forUpdateStudentNumber = '';
 		}
 	},
-	mount() {
-		// Requête SQL pour obtenir la liste des matériels empruntés
-		// borrowedService.getBorrowedItemList();
+	mounted() {
+		this.getAvailableHardwareItemList();
+		this.getBorrowedItemList();
 	},
 };
 </script>
@@ -275,7 +476,7 @@ export default {
 				<h2>Réservation</h2>
 				<div class="to-borrow-student-forms">
 					<h3>Etudiant</h3>
-					<form id="search-student" @submit.prevent="searchStudent">
+					<form id="search-student" @submit.prevent="searchStudent()">
 						<input v-model="studentNumber" type="text" id="studentNumber"
 							placeholder="Entrer le numéro étudiant">
 						<button type="submit">Rechercher</button>
@@ -296,7 +497,7 @@ export default {
 				</div>
 				<div class="to-borrow-hardware-forms">
 					<h3>Matériel</h3>
-					<form id="search-student" @submit.prevent="searchHardware">
+					<form id="search-student" @submit.prevent="searchHardware()">
 						<input v-model="hardwareNumber" type="text" id="HardwareNumber" placeholder="Entrer le code barre">
 						<button type="submit">Rechercher</button>
 					</form>
@@ -345,35 +546,35 @@ export default {
 			</div>
 			<GridComponent :heroes="gridBorrowedData" :columns="gridColumnsBorrowed" :filter-key="searchBorrowedQuery" />
 			<button @click="showRetakeForm = true; showEditForm = false;">Récupérer</button>
-			<button @click="showEditForm = true; showRetakeForm = false;">Modifier / prolonger</button>
+			<button @click="showEditForm = true; showRetakeForm = false;">Modifier les dates</button>
 		</div>
 
 		<div v-if="showRetakeForm" class="retake-borrowed-form">
 			<h2>Matériel rendu</h2>
 			<form @submit.prevent="retakeBorrowedItem()">
-				<label for="borrowed-id">ID du matériel : </label>
-				<input type="text" name="borrowed-id" id="borrowed-id" v-model="retake.hardwareId" />
-				<label for="borrowed-id">ID de l'étudiant : </label>
-				<input type="text" name="borrowed-id" id="borrowed-id" v-model="retake.studentId" />
+				<label for="borrowed-id">Code barre du matériel : </label>
+				<input type="text" name="borrowed-id" id="borrowed-id" v-model="retake.hardwareBarCode" />
+				<label for="borrowed-id">Numéro de l'étudiant : </label>
+				<input type="text" name="borrowed-id" id="borrowed-id" v-model="retake.studentNumber" />
 				<button type="submit">Rendu</button>
 				<button @click="resetForm">Annuler</button>
 			</form>
 		</div>
 
 		<div v-if="showEditForm" class="update-borrowed-form">
-			<h2>Modifier / Prolonger un emprunt</h2>
+			<h2>Modifier les dates d'un emprunt</h2>
 			<form id="search-borrowed-item" @submit.prevent="searchBorrowedItem()" class="search-borrowed-item">
-				<input v-model="toUpdateBorrowedItem.hardwareId" type="text" id="searchBarCode"
+				<input v-model="forUpdateHardwareBarCode" type="text" id="searchBarCode"
 					placeholder="Entrer le code barre du matériel emprunté">
+				<input v-model="forUpdateStudentNumber" type="text" id="searchStudentNumber"
+					placeholder="Entrer le numéro étudiant">
 				<button type="submit">Rechercher</button>
 			</form>
 			<form @submit.prevent="updateBorrowedItem()">
-				<label for="studentId">Id de l'étudiant : </label>
-				<input type="text" name="studentId" id="studentId" v-model="toUpdateBorrowedItem.studentId" />
 				<label for="startDate">Date de début : </label>
-				<input type="date" name="startDate" id="startDate" v-model="toUpdateBorrowedItem.startDate" />
-				<label for="endDate">Date d'achat : </label>
-				<input type="date" name="endDate" id="endDate" v-model="toUpdateBorrowedItem.endDate" />
+				<input type="date" name="dateDebut" id="dateDebut" v-model="toUpdateBorrowedItem.dateDebut" />
+				<label for="endDate">Date de fin : </label>
+				<input type="date" name="dateFin" id="dateFin" v-model="toUpdateBorrowedItem.dateFin" />
 				<button type="submit">Modifier</button>
 				<button @click="resetForm">Annuler</button>
 			</form>
@@ -569,9 +770,10 @@ export default {
 	input {
 		padding: 5px;
 		margin-bottom: 20px;
+		margin-left: 10px;
 		border-radius: 5px;
 		border: 1px solid #D9D9D9;
-		width: 50%;
+		width: 20%;
 	}
 
 	button {

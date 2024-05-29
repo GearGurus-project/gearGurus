@@ -7,22 +7,31 @@ const apiClient = axios.create({
 });
 
 export default {
-	getBorrowedItemsById(studentNumber) {
+	getBorrowedItems() {
+		return apiClient.get('');
+	},
+
+	borrowHardware(borrowedItem) {
+		return apiClient.post('', borrowedItem);
+	},
+
+	getBorrowedItemById(idHardware, idStudent) {
+		return apiClient.get(`/${idHardware}/${idStudent}`);
+	},
+
+	getBorrowedItemsByStudentNumber(studentNumber) {
 		return apiClient.get(`/student/${studentNumber}`);
 	},
-	getBorrowedItems() {
-		return apiClient.get('/');
-	},
-	getBorrowedItemByBarCode(barCode) {
-		return apiClient.get(`/${barCode}`);
-	},
+
 	createBorrowedItem(borrowedItem) {
 		return apiClient.post('/', borrowedItem);
 	},
-	updateBorrowedItem(borrowedItem) {
-		return apiClient.put(`/${borrowedItem.barCode}`, borrowedItem);
+
+	updateBorrowedItem(idHardware, idStudent, borrowedItem) {
+		return apiClient.put(`/${idHardware}/${idStudent}`, borrowedItem);
 	},
-	deleteBorrowedItem(barCode) {
-		return apiClient.delete(`/${barCode}`);
+
+	retakeHardware(idHardware, idStudent) {
+		return apiClient.delete(`/${idHardware}/${idStudent}`);
 	},
 };

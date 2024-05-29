@@ -68,7 +68,7 @@ export default {
       localStorage.removeItem("lastName");
       localStorage.removeItem("role");
       // Redirect to the login page
-      this.$router.push("/login2");
+      this.$router.push("/");
     },
   },
   mounted() {

@@ -64,7 +64,7 @@ export default {
 		},
 		async deleteHardwareItem() {
 			try {
-				await hardwareService.deleteHardwareByBarCode(this.hardwareItem.id);
+				await hardwareService.deleteHardwareByBarCode(this.hardwareItem.barCode);
 				this.getHardwareList();
 				this.resetForm();
 			} catch (error) {
@@ -158,7 +158,7 @@ export default {
 				<label for="price">Prix</label>
 				<input type="number" name="price" id="price" v-model="hardwareItem.price" />
 				<label for="barcode">Code barre : </label>
-				<input type="text" name="barCode" id="barCode" v-model="hardwareItem.barCode"/>
+				<input type="text" name="barCode" id="barCode" v-model="hardwareItem.barCode" />
 				<button type="submit">Ajouter</button>
 				<button @click="resetForm">Annuler</button>
 			</form>
@@ -167,8 +167,8 @@ export default {
 		<div v-if="showDeleteForm" class="delete-hardware-form">
 			<h2>Supprimer du matériel</h2>
 			<form @submit.prevent="deleteHardwareItem()">
-				<label for="hardware-id">ID du matériel : </label>
-				<input type="text" name="hardware-id" id="hardware-id" v-model="hardwareItem.id" />
+				<label for="hardware-id">Code barre du matériel : </label>
+				<input type="text" name="hardware-id" id="hardware-id" v-model="hardwareItem.barCode" />
 				<button type="submit">Supprimer</button>
 				<button @click="resetForm">Annuler</button>
 			</form>
